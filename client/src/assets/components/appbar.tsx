@@ -1,12 +1,22 @@
 import Avatar from "./avatar";
 import {  useNavigate } from "react-router-dom";
-
-export default function Appbar(){
+import tech from "./../images/TECH (2).png"
+import tale from "./../images/TALES (2).png"
+interface Appbarprops{
+    name: string
+}
+export default function Appbar({name}:Appbarprops){
     const navigate=useNavigate()
     return(
-        <div className="w-screen flex justify-between border-b-2 px-8 py-4">
-            <div className=" text-green-500 text-xl font-serif font-semibold cursor-pointer hover:text-green-700" onClick={()=>navigate("/blogs")}>TECH TALES</div>
-            <Avatar></Avatar>
+        <div className="w-screen flex justify-between border-b-2 px-8 py-4 items-center">
+            <div className=" cursor-pointer  flex " onClick={()=>navigate("/blogs")}>
+            <img src={tech} className="  h-10   bg-white"></img>
+            <img src={tale} className="  h-10   bg-white"></img>
+            
+            </div>
+            <Avatar name={name} color="green" big={true}></Avatar>
+           
+          
              </div>
     )
 }
