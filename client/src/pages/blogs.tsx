@@ -6,14 +6,13 @@ import { useNavigate } from "react-router-dom";
 import Blogcard from "../assets/components/blogCard";
 import Appbar from "../assets/components/appbar";
 import { useRecoilState ,useSetRecoilState } from "recoil";
-import {  UserName } from "../state/atoms";
-
-
+import {  BlogState, UserName } from "../state/atoms";
 
 export default function Blogs() {
     const navigate = useNavigate();
     const [posts, setPosts] = useState<any[]>([]);
     const [name,setName]=useRecoilState(UserName)
+    const setBlogState=useSetRecoilState(BlogState)
   
     useEffect(() => {
         const fetchData = async () => {
@@ -26,6 +25,7 @@ export default function Blogs() {
                     }
                 });
                 setPosts(res.data.posts);
+                setBlogState(res.data.posts)
                 setName(res.data.name.firstName)
             }
              catch (e: any) {

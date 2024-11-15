@@ -24,7 +24,7 @@ export default function Blogcard({ title, content ,id ,author }: t) {
       <div
         className=" font-bold text-xl pb-1 hover:underline
             transition-all transform hover:translate-x-2 hover:shadow-xl  duration-300 cursor-pointer text-green-600"
-        onClick={()=>navigate(`/blog/?id=${id}&firstName=${author.firstName}&lastName=${author.lastName}`)}
+        onClick={()=>navigate(`/blog/?id=${id}`)}
       >
         {title.length < 70 ? title : title.slice(0, 50) + "..."}
       </div>
