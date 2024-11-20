@@ -8,10 +8,9 @@ interface Appbarprops{
 export default function Appbar({name}:Appbarprops){
     const navigate=useNavigate()
     return(
-        <div className="w-screen flex justify-between border-b-2 px-8 py-4 items-center">
-            <div className=" cursor-pointer  flex " onClick={()=>navigate("/blogs")}>
-            <img src={tech} className="  h-8   bg-white"></img>
-            <img src={tale} className="  h-8   bg-white"></img>
+        <div className="  flex justify-between bg-black border-green-500 border-b px-4 py-3 items-center shadow-sm shadow-green-500">
+            <div className=" cursor-pointer  flex text-green-500 text-xl " onClick={()=>navigate("/blogs")}>
+           KEYNOTES
             
             </div>
             <Avatar name={name} color="green" big={true}></Avatar>

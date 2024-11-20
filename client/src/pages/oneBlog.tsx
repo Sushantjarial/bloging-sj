@@ -1,14 +1,16 @@
 import { useSearchParams, useNavigate } from "react-router-dom";
 import Appbar from "../assets/components/appbar";
-import Avatar from "../assets/components/avatar";
 import { useRecoilState } from "recoil";
 import { BlogState, UserName } from "../state/atoms";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { BACKEND_URL } from "../../config";
 import toast from "react-hot-toast";
+import { PulseLoader } from "react-spinners";
+import OneBlogCard from "../assets/components/oneBlogCard";
+import OneBlogSideCard from "../assets/components/oneBlogSideCard";
 
-interface Blog {
+export interface Blog {
   id: string;
   title: string;
   content: string;
@@ -58,29 +60,25 @@ export default function OneBlog() {
   }, [id, post, setPosts, setName, navigate]);
 
   if (!post) {
-    return <div>Loading...</div>;
+    return <div className="flex justify-center h-screen items-center"><PulseLoader
+      color="#17e317"
+      size={25}
+    /></div>;
   }
 
   return (
     <div>
       <Appbar name={name.charAt(0).toUpperCase()} />
-      <div className="grid grid-cols-12   ">
-        <div className="col-span-2 "></div>
-        <div className="col-span-8 px-8 py-4 border-green-500 text-start ">
-        <h1 className="text-6xl font-bold py-4 ">{post.title}</h1>
-        <div className="flex items-center py-4">        <Avatar name="S" big={true} ></Avatar>
-        <div className="flex-col items-center justify-start  px-2">
-        <div className="text-xl  font-semibold ">{post.author.firstName +" "+post.author.lastName}</div>
-        <div className="text-xs -my-1">published on 8 sep 2003</div>
+      <div className=" lg:grid grid-cols-12 ">
+        <div className=" lg:grid col-span-8  shadow-lg lg:border-r">
+          <OneBlogCard id={post.id} title={post.title} content={post.content} author={{
+            firstName: post.author.firstName,
+            lastName: post.author.lastName
+          }}      ></OneBlogCard>
         </div>
+        <div className=" hidden  lg:block  col-span-4 bg-black ">
+        <OneBlogSideCard></OneBlogSideCard>
         </div>
-
-        <p className="text-2xl ">{post.content}</p>
-        </div>
-
-
-
-      
       </div>
     </div>
   );

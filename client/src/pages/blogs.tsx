@@ -7,12 +7,14 @@ import Blogcard from "../assets/components/blogCard";
 import Appbar from "../assets/components/appbar";
 import { useRecoilState ,useSetRecoilState } from "recoil";
 import {  BlogState, UserName } from "../state/atoms";
+import { PulseLoader } from "react-spinners";
 
 export default function Blogs() {
     const navigate = useNavigate();
     const [posts, setPosts] = useState<any[]>([]);
     const [name,setName]=useRecoilState(UserName)
     const setBlogState=useSetRecoilState(BlogState)
+    const [loader, setloader]=useState(true)
   
     useEffect(() => {
         const fetchData = async () => {
@@ -25,6 +27,7 @@ export default function Blogs() {
                     }
                 });
                 setPosts(res.data.posts);
+                setloader(false)
                 setBlogState(res.data.posts)
                 setName(res.data.name.firstName)
             }
@@ -35,13 +38,20 @@ export default function Blogs() {
         };
         fetchData();
       },[navigate])
+      if(loader){
+            return <div className="flex justify-center h-screen items-center"><PulseLoader
+            color="#17e317"
+            size={25}
+          /></div>;
+          
+      }
     return ( 
         <div > 
              <Appbar name={name.charAt(0).toUpperCase()}></Appbar>
        { posts.map((post:{title:string,content:string,id:string,author:{firstName:string,lastName:string}})=>{
         return(  
-        <div className="flex justify-center">    
-            <div className=" my-6 mx-2 max-w-2xl w-screen   bg-green-500 md:min-w-xl   ">
+        <div className="flex justify-center bg-black ">    
+            <div className=" my-6 mx-2 max-w-2xl w-screen rounded-full  bg-green-800 md:min-w-xl  ">
           <Blogcard key={post.id} title={post.title} content={post.content} id={post.id} author={post.author} ></Blogcard>
               </div>
               </div>

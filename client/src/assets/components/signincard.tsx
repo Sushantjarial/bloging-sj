@@ -1,7 +1,7 @@
 import Inputfield from "./inputfield";
 import Bottomwarning from "./bottomWarning";
 import { signinInput } from "@sushantjarial/blog-common";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { BACKEND_URL } from "../../../config";
 import { useNavigate } from "react-router-dom";
@@ -13,13 +13,20 @@ export default function Signincard() {
     email: "",
     password: "",
   });
-  let id: number;
+  const id = useRef<number | null>(null);
   useEffect(() => {
-    clearInterval(id);
-    id = setTimeout(
+    if (id.current) {
+      clearTimeout(id.current);
+    }
+    id.current = window.setTimeout(
       () => toast.success("use default credentials to checkout the website"),
       100
     );
+    return () => {
+      if (id.current) {
+        clearTimeout(id.current);
+      }
+    };
   }, []);
 
   const sendRequest = async () => {
@@ -28,7 +35,7 @@ export default function Signincard() {
         toast.error("All fields are required");
       } else {
         const res = await axios.post(
-          `${BACKEND_URL}/api/v1/user/signin`,
+        `${BACKEND_URL}/api/v1/user/signin` ,
           signInput
         );
         const { token } = res.data;
@@ -38,11 +45,15 @@ export default function Signincard() {
         toast.success("signed in");
       }
     } catch (e: any) {
-      e.response.data.error
-        ? e.response.data.error.map((errorr: any) => {
-            toast.error(errorr.message);
-          })
-        : toast.error(e.response.data.message);
+      if (e.response) {
+        e.response.data.error
+          ? e.response.data.error.map((errorr: any) => {
+              toast.error(errorr.message);
+            })
+          : toast.error(e.response.data.message);
+      } else {
+        toast.error(e.message);
+      }
     }
   };
 
