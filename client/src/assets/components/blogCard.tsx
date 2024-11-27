@@ -1,4 +1,4 @@
-import {  useNavigate } from "react-router-dom";
+import {  Link } from "react-router-dom";
 
 interface t {
   title: string;
@@ -7,27 +7,28 @@ interface t {
   author:{
     firstName:string,
     lastName:string
-
+    id:string
   }
+  side?:boolean
 }
 
-export default function Blogcard({ title, content ,id ,author }: t) {
-  const navigate=useNavigate();
+export default function Blogcard({side, title, content ,id ,author }: t) {
   return (
-    <div className="flex flex-col bg-black bg-opacity-100  rounded-full p-3  text-white  shadow-sm   shadow-black  border-b-2 border-r-2 border-green-500 hover:bg-opacity-80 min-w-60">
-      
-      <div
+    <div className="flex flex-col bg-black bg-opacity-100  rounded-full p-3   text-white  shadow-sm   shadow-black  border-b-2 border-r-2 border-green-500 hover:bg-opacity-80 ">
+      <Link className="font-bold text-xl pb-1  px-2 hover:underline
+            transition-all transform hover:translate-x-2 hover:shadow-xl  duration-300 cursor-pointer text-green-600" to={`/blog/?id=${id}`}>{title.length < 70 ? title : title.slice(0, 50) + "..."}</Link>
+      {/* <div
         className=" font-bold text-xl pb-1  px-2 hover:underline
             transition-all transform hover:translate-x-2 hover:shadow-xl  duration-300 cursor-pointer text-green-600"
         onClick={()=>navigate(`/blog/?id=${id}`)}
       >
         {title.length < 70 ? title : title.slice(0, 50) + "..."}
-      </div>
-      <div className="opacity-65 lg:hidden">
+      </div> */}
+      <div className="opacity-65 lg:hidden text-start px-2">
         {content.length < 200 ? content : content.slice(0, 80) + "..."}
       </div>
       <div className="opacity-65 hidden lg:block text-start px-2">
-        {content.length < 200 ? content : content.slice(0, 200) + "..."}
+        {(side)?content.length < 200 ? content : content.slice(0, 80) + "..." : content.length < 200 ? content : content.slice(0, 200) + "..."}
       </div>
       <div className="font-extralight  pt-3  opacity-40 flex flex-row gap-6 pl-10 items-center justify-end mr-16">
 

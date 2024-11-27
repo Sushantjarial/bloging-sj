@@ -5,12 +5,14 @@ import { Toaster } from "react-hot-toast"
 import Blogs from "./pages/blogs"
 import OneBlog from "./pages/oneBlog"
 import { RecoilRoot } from "recoil"
+import Write from "./pages/write"
 function App() {
 
   return (
-    <RecoilRoot>
+    
 
 <BrowserRouter>
+<RecoilRoot>
     <Toaster position="top-right"/>
 
    <Routes>
@@ -19,10 +21,12 @@ function App() {
     <Route path="/signin" element={<Signin></Signin>} ></Route>
     <Route path="/blogs" element={<Blogs></Blogs>} ></Route>
     <Route path="/blog" element={<OneBlog></OneBlog>} ></Route>
+    <Route path="/write" element={<Write></Write>} ></Route>
      
     </Routes> 
-    </BrowserRouter>
     </RecoilRoot>
+
+    </BrowserRouter>
   )
 }
 

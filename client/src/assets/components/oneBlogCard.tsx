@@ -6,8 +6,8 @@ import Avatar from "./avatar"
 
 export default function OneBlogCard(post:Blog){
     return(
-    <div className=" ">
-        <div className="px-2 pl-4  lg:px-20 py-4 place-items-start bg-black text-slate-100  ">
+    <div className=" bg-black ">
+        <div className="px-2 pl-4  lg:px-20 py-4 place-items-start text-slate-100  ">
         <h1 className="text-4xl font-extrabold py-4  ">{post.title}</h1>
         <div className="flex items-center py-4">        <Avatar name="S" big={true} ></Avatar>
         <div className="flex-col items-center justify-start px-3">

@@ -39,7 +39,6 @@ export default function Signincard() {
           signInput
         );
         const { token } = res.data;
-        toast.success("signed in");
         localStorage.setItem("token", token);
         navigate("/blogs");
         toast.success("signed in");

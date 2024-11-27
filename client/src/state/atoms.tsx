@@ -11,11 +11,12 @@ interface Blog{
     content:string,
     author:{
         firstName:string,
-        lastName:string
+        lastName:string,
+        id:string
     }
 }
 
 export const BlogState =atom<Blog[]>({
     key: "BlogState",
-    default:[]
+    default: []
 })

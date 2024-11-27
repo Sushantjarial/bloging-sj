@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { BACKEND_URL } from "../../config";
 import toast from "react-hot-toast";
-import { PulseLoader } from "react-spinners";
+import { BarLoader } from "react-spinners";
 import OneBlogCard from "../assets/components/oneBlogCard";
 import OneBlogSideCard from "../assets/components/oneBlogSideCard";
 
@@ -17,6 +17,7 @@ export interface Blog {
   author: {
     firstName: string;
     lastName: string;
+    id: string
   };
 }
 
@@ -33,7 +34,7 @@ export default function OneBlog() {
   );
 
   useEffect(() => {
-    if (post) return;
+    if (post && post.id === id) return;
 
     const fetchData = async () => {
       const token = localStorage.getItem("token") || "";
@@ -59,25 +60,36 @@ export default function OneBlog() {
     fetchData();
   }, [id, post, setPosts, setName, navigate]);
 
-  if (!post) {
-    return <div className="flex justify-center h-screen items-center"><PulseLoader
-      color="#17e317"
-      size={25}
-    /></div>;
+  if (!(post && post.id==id)) {
+    return(
+    <div>
+    <Appbar name={name.charAt(0).toUpperCase()}></Appbar>
+    <BarLoader
+color="#16e612"
+width={1000}
+/>
+<div></div>
+
+</div>
+    )
+
   }
 
   return (
-    <div>
+    <div className="">
+      <div className=" ">
       <Appbar name={name.charAt(0).toUpperCase()} />
-      <div className=" lg:grid grid-cols-12 ">
-        <div className=" lg:grid col-span-8  shadow-lg lg:border-r">
+      </div>
+      <div className=" lg:grid grid-cols-12  bg-black h-screen ">
+        <div className=" lg:grid col-span-8   shadow-lg lg:border-r ">
           <OneBlogCard id={post.id} title={post.title} content={post.content} author={{
             firstName: post.author.firstName,
-            lastName: post.author.lastName
+            lastName: post.author.lastName,
+            id:post.author.id
           }}      ></OneBlogCard>
         </div>
-        <div className=" hidden  lg:block  col-span-4 bg-black ">
-        <OneBlogSideCard></OneBlogSideCard>
+        <div className=" hidden  lg:block  col-span-4 bg-black overflow-hidden ">
+        <OneBlogSideCard id={post.author.id}></OneBlogSideCard>
         </div>
       </div>
     </div>
