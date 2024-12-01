@@ -89,7 +89,7 @@ export default function Signincard() {
         </button>
         <Bottomwarning
           warning="Create an account?"
-          to="/signup"
+          to="/"
           name="Sign up"
         ></Bottomwarning>
       </div>
