@@ -4,7 +4,7 @@ import { UserName } from "../state/atoms";
 import WriteBlogCard from "../assets/components/writeBlogCard";
 
 export default function Write(){
-    const name=useRecoilValue(UserName)
+    const name=localStorage.getItem("username")||"?"
     return(
         <div className="">
             <Appbar name={name} writeIcon={true}></Appbar>

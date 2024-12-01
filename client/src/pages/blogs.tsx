@@ -32,7 +32,8 @@ export default function Blogs() {
                     });
 
                     setBlogState(res.data.posts)
-                    setName(res.data.name.firstName)
+                     setName(res.data.name.firstName)
+                    localStorage.setItem("username",name)
                     setloader(false)
                 }
                 catch (e: any) {
@@ -44,7 +45,7 @@ export default function Blogs() {
             fetchData();
 
         
-    }, [])
+    }, [name])
     
     
 

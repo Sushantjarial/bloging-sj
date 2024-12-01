@@ -79,7 +79,7 @@ export default function Signincard() {
           }
           name="Password"
           type="password"
-          placeholder="IamIronMan$3000"
+          placeholder="Iamironman$3000"
         ></Inputfield>
         <button
           onClick={sendRequest}
