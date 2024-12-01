@@ -1,6 +1,4 @@
-import { useRecoilValue } from "recoil";
 import Appbar from "../assets/components/appbar";
-import { UserName } from "../state/atoms";
 import WriteBlogCard from "../assets/components/writeBlogCard";
 
 export default function Write(){
