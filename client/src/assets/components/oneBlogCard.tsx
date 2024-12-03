@@ -15,8 +15,9 @@ export default function OneBlogCard(post:Blog){
         <div className="text-xs -my-1">published on 8 sep 2003</div>
         </div>
         </div>
-
-        <p   className="text-2xl leading-relaxed text-slate-300 text-start">{post.content}</p>
+        <div   className="text-2xl leading-relaxed text-slate-300 text-start" 
+         dangerouslySetInnerHTML={{ __html: post.content }}
+        ></div>
         </div>
         </div>
         )

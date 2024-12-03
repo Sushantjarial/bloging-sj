@@ -24,11 +24,15 @@ export default function Blogcard({side, title, content ,id ,author }: t) {
       >
         {title.length < 70 ? title : title.slice(0, 50) + "..."}
       </div> */}
-      <div className="opacity-65 lg:hidden text-start px-2">
-        {content.length < 200 ? content : content.slice(0, 80) + "..."}
+      <div className="opacity-65 lg:hidden text-start px-2"
+       dangerouslySetInnerHTML={{__html:content.length < 200 ? content : content.slice(0, 80) + "..."}}
+      >
+        
       </div>
-      <div className="opacity-65 hidden lg:block text-start px-2">
-        {(side)?content.length < 200 ? content : content.slice(0, 80) + "..." : content.length < 200 ? content : content.slice(0, 200) + "..."}
+      <div className="opacity-65 hidden lg:block text-start px-2" 
+      dangerouslySetInnerHTML={{ __html: (side)?content.length < 200 ? content : content.slice(0, 80) + "..." : content.length < 200 ? content : content.slice(0, 200) + "..." }}
+      >
+      
       </div>
       <div className="font-extralight  pt-3  opacity-40 flex flex-row gap-6 pl-10 items-center justify-end mr-16">
 

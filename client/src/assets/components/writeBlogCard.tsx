@@ -1,12 +1,34 @@
-import  { useState } from "react";
+import axios from "axios";
+import  { useRef, useState } from "react";
+import { BACKEND_URL } from "../../../config";
+import JoditEditor from 'jodit-react';
+import toast from "react-hot-toast";
 
 const BlogCard = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const token = localStorage.getItem("token") || ""
+  const editor = useRef(null);
 
-  const handleSubmit = (e:any) => {
+  const handleSubmit = async (e:any) => {
     e.preventDefault();
     console.log({ title, content });
+    try{
+     await axios.post(
+      `${BACKEND_URL}/api/v1/blog/create`,
+      { title, content },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
+    );
+    toast.success("published");
+  }
+  catch(e:any){
+    toast.error("cannot publish right now try again after some time")
+  }
+
   };
 
   return (
@@ -37,20 +59,25 @@ const BlogCard = () => {
             >
               Content
             </label>
-            <textarea
+            {/* <textarea
               id="content"
               value={content}
               onChange={(e) => setContent(e.target.value)}
               placeholder="Enter your blog content"
               rows={20}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:outline-none"
-            />
+            /> */}
+          <JoditEditor
+          ref={editor}
+          value={content}
+          onChange={newContent => setContent(newContent)}
+          />
           </div>
           <button
             type="submit"
             className="w-full bg-green-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-green-700 transition duration-300"
           >
-            PUBLISH
+            PUBLISH 
           </button>
         </form>
       </div>
