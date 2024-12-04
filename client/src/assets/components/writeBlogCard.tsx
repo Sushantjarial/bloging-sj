@@ -9,10 +9,22 @@ const BlogCard = () => {
   const [content, setContent] = useState("");
   const token = localStorage.getItem("token") || ""
   const editor = useRef(null);
+  const [isPublishing,setIsPublishing]=useState(false)
+  const config = {
+    height: 500, // Set height in pixels
+  };
 
   const handleSubmit = async (e:any) => {
+    if(!title || !content){
+      toast.error("All fields are required")
+    }
     e.preventDefault();
-    console.log({ title, content });
+    if (isPublishing) {
+      toast.error("Please wait before publishing again.");
+      return;
+    }
+    setIsPublishing(true);
+    setTimeout(() => setIsPublishing(false), 5000);
     try{
      await axios.post(
       `${BACKEND_URL}/api/v1/blog/create`,
@@ -32,8 +44,8 @@ const BlogCard = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen  bg-gray-100">
-      <div className="bg-white shadow-lg shadow-green-500 rounded-lg p-6 w-full max-w-7xl sm:my-8">
+    <div className="flex justify-center items-center min-h-screen  bg-gray-100 ">
+      <div className="bg-white shadow-lg shadow-green-500 rounded-lg p-8 w-full max-w-7xl sm:my-4">
         <h2 className="text-2xl font-semibold text-gray-800 mb-4">New Blog Post</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
@@ -70,10 +82,11 @@ const BlogCard = () => {
           <JoditEditor
           ref={editor}
           value={content}
-          onChange={newContent => setContent(newContent)}
+          config={config}
+          onBlur={newContent => setContent(newContent)}
           />
           </div>
-          <button
+          <button disabled={isPublishing}
             type="submit"
             className="w-full bg-green-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-green-700 transition duration-300"
           >

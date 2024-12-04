@@ -14,7 +14,7 @@ export default function Blogs() {
     const [name, setName] = useRecoilState(UserName)
     const [posts, setBlogState] = useRecoilState(BlogState)
     const [loader, setloader] = useState(true)
-
+    localStorage.setItem("username",name)
 
     useEffect(() => {
             if(Array.isArray(posts) && posts.length > 0){
@@ -33,7 +33,7 @@ export default function Blogs() {
 
                     setBlogState(res.data.posts)
                      setName(res.data.name.firstName)
-                    localStorage.setItem("username",name)
+                    
                     setloader(false)
                 }
                 catch (e: any) {
