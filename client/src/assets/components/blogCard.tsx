@@ -89,7 +89,7 @@ export default function BlogCard({ side, title, content, id, author, deleteIcon,
         </div>
         <div className="opacity-40">{formatDate(createdAt)}</div>
 
-        <div className="opacity-40">{readingTime} min read </div>
+        <div className="opacity-40">{readingTime} min</div>
         <img src={trash} onClick={()=>setShowWarning(true)}  className={`w-5 h-5 ${deleteIcon?"":"hidden"} hover:opacity-40 cursor-pointer  ` }  ></img>
 
 
