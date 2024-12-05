@@ -14,6 +14,7 @@ export interface Blog {
   id: string;
   title: string;
   content: string;
+  createdAt:string,
   author: {
     firstName: string;
     lastName: string;
@@ -85,7 +86,7 @@ width={1000}
       </div>
       <div className=" lg:grid grid-cols-12  bg-black h-screen ">
         <div className= {`lg:grid ${sideCard ? 'col-span-8 border-r ' : 'col-span-12 '}  shadow-lg lg:`} >
-          <OneBlogCard id={post.id} title={post.title} content={post.content} author={{
+          <OneBlogCard id={post.id} title={post.title} content={post.content} createdAt={post.createdAt} author={{
             firstName: post.author.firstName,
             lastName: post.author.lastName,
             id:post.author.id

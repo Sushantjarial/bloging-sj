@@ -12,6 +12,7 @@
   "dependencies": {
     "@sushantjarial/blog-common": "^1.0.0",
     "axios": "^1.7.7",
+    "date-fns": "^4.1.0",
     "jodit-react": "^4.1.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",

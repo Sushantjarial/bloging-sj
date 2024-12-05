@@ -30,7 +30,7 @@ export default function MyBlogs() {
                     return (
                         <div className="flex justify-center bg-transparent" key={post.id}>
                             <div className="my-6 mx-2 max-w-2xl w-screen rounded-full flex bg-green-800 md:min-w-xl">
-                                <BlogCard deleteIcon={true} title={post.title} content={post.content} id={post.id} author={post.author} />
+                                <BlogCard createdAt={post.createdAt} deleteIcon={true} title={post.title} content={post.content} id={post.id} author={post.author} />
                             </div>
                         </div>
                     );

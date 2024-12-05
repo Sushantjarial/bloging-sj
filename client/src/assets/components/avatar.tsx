@@ -26,21 +26,18 @@ export default function Avatar({ name, color, big ,appBar }: AvatarProps) {
                 {name?.charAt(0).toUpperCase()}
             </div>
             {dropdownVisible && (
-                <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-300 rounded-md shadow-lg z-50">
-                    <ul>
-                        <li className="hover:bg-green-300 cursor-pointer px-4 py-2">   <Link to="/myBlogs" className="pr-14" >My Blogs</Link></li>
+                <div className="flex flex-col absolute right-0 mt-2 w-48 bg-white border border-gray-300 rounded-md shadow-lg z-50">
+                   
+                        <Link to="/myBlogs" className="hover:bg-green-300 cursor-pointer px-4 py-2">My Blogs </Link>
                 
                      
                         
-                        <li className="px-4 py-2 hover:bg-green-300 cursor-pointer">
-                            <Link to="/updateProfile" className="pr-12">Update Profile</Link>
-                        </li>
+                        <Link className="px-4 py-2 hover:bg-green-300 cursor-pointer" to="/signin" onClick={()=>localStorage.clear()}>
+                          Logout
+                        </Link>
 
-                        <li className="px-4 py-2 hover:bg-green-300 cursor-pointer">
-                            <Link to="/signin" onClick={()=>localStorage.clear()} className="pr-12">Logout</Link>
-                        </li>
 
-                    </ul>
+                    
                 </div>
             )}
         </div>

@@ -8,6 +8,7 @@ import Appbar from "../assets/components/appbar";
 import { useRecoilState } from "recoil";
 import { BlogState, UserName } from "../state/atoms";
 import { BarLoader } from "react-spinners";
+import { Blog } from "./oneBlog";
 
 export default function Blogs() {
     const navigate = useNavigate();
@@ -65,13 +66,13 @@ export default function Blogs() {
                 <div>      <div className=" fixed z-50 w-full   bg-black">
                     <Appbar ></Appbar> </div>
                     <div className="pb-16 "></div>
-                    <div className="bg-[url('https://img.freepik.com/free-photo/abstract-optical-laser-horizontal-background_23-2149116253.jpg?t=st=1733420522~exp=1733424122~hmac=cae12269225f7efff23ca9709a968079291a752cad23166ca81281a31596c19b&w=900')] lg:bg-fixed  ">
-                    {posts.map((post: { title: string, content: string, id: string, author: { firstName: string, lastName: string, id: string } }) => {
+                    <div className="bg-[url('https://img.freepik.com/free-photo/abstract-optical-laser-horizontal-background_23-2149116253.jpg?t=st=1733420522~exp=1733424122~hmac=cae12269225f7efff23ca9709a968079291a752cad23166ca81281a31596c19b&w=900')] lg:bg-fixed min-h-screen  ">
+                    {posts.map((post: Blog) => {
                         return (
                            
                             <div className="flex  justify-center  " key={post.id}>
                                 <div className=" my-6 mx-2 max-w-2xl w-screen rounded-full  bg-green-900 md:min-w-xl  ">
-                                    <Blogcard title={post.title} content={post.content} id={post.id} author={post.author} ></Blogcard>
+                                    <Blogcard createdAt={post.createdAt} title={post.title} content={post.content} id={post.id} author={post.author} ></Blogcard>
                                 </div>
                             </div>
                             
