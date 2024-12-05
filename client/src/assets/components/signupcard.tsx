@@ -1,6 +1,6 @@
 import Inputfield from "./inputfield"
 import Bottomwarning from "./bottomWarning"
-import { signupInput } from "@sushantjarial/blog-common"
+import {  signupInput } from "@sushantjarial/blog-common"
 import { useState } from "react"
 import axios from "axios"
 import {BACKEND_URL} from "./../../../config"
@@ -26,6 +26,7 @@ export default function Signupcard(){
    toast.success("Succesfully signed up")
    const {token} = res.data ;
    localStorage.setItem("token",token)
+   localStorage.setItem("username",signInput.firstName)
     navigate("/blogs")
    
     } }

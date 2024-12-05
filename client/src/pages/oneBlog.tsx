@@ -27,10 +27,10 @@ export default function OneBlog() {
   const [urlSearchParams] = useSearchParams();
   const id = urlSearchParams.get("id");
   const [posts, setPosts] = useRecoilState(BlogState);
-  const[sideCard,setSideCard]=useState(true)
+  const[sideCard,setSideCard]=useState(false)
 
   const hideSide=()=>{
-    setSideCard(false)
+    setSideCard(!sideCard)
   }
 
   // Find the post in the Recoil state if it exists
@@ -86,11 +86,8 @@ width={1000}
       </div>
       <div className=" lg:grid grid-cols-12  bg-black h-screen ">
         <div className= {`lg:grid ${sideCard ? 'col-span-8 border-r ' : 'col-span-12 '}  shadow-lg lg:`} >
-          <OneBlogCard id={post.id} title={post.title} content={post.content} createdAt={post.createdAt} author={{
-            firstName: post.author.firstName,
-            lastName: post.author.lastName,
-            id:post.author.id
-          }}      ></OneBlogCard>
+          <OneBlogCard post={post}
+           hideSide={hideSide}   ></OneBlogCard>
         </div>
         <div className={`hidden lg:${sideCard ? 'block' : 'hidden'} col-span-4 bg-black overflow-hidden`} >
           <div>

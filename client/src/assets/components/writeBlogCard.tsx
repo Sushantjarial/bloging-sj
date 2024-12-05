@@ -17,6 +17,7 @@ const WriteBlogCard = () => {
   const handleSubmit = async (e:any) => {
     if(!title || !content){
       toast.error("All fields are required")
+      return;
     }
     e.preventDefault();
     if (isPublishing) {

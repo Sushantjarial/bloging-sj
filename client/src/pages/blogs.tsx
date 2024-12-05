@@ -6,16 +6,15 @@ import { useNavigate } from "react-router-dom";
 import Blogcard from "../assets/components/blogCard";
 import Appbar from "../assets/components/appbar";
 import { useRecoilState } from "recoil";
-import { BlogState, UserName } from "../state/atoms";
+import { BlogState } from "../state/atoms";
 import { BarLoader } from "react-spinners";
 import { Blog } from "./oneBlog";
 
 export default function Blogs() {
     const navigate = useNavigate();
-    const [name, setName] = useRecoilState(UserName)
     const [posts, setBlogState] = useRecoilState(BlogState)
     const [loader, setloader] = useState(true)
-    localStorage.setItem("username", name)
+    
 
     useEffect(() => {
         if (Array.isArray(posts) && posts.length > 0) {
@@ -33,7 +32,7 @@ export default function Blogs() {
                 });
 
                 setBlogState(res.data.posts)
-                setName(res.data.name.firstName)
+                localStorage.setItem("username", res.data.name.firstName)
 
                 setloader(false)
             }
@@ -46,7 +45,7 @@ export default function Blogs() {
         fetchData();
 
 
-    }, [name])
+    }, [])
 
 
 
