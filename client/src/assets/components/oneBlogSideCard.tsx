@@ -46,14 +46,14 @@ const blogId=searchParms.get("id");
         <img title="Hide" src={hidden} onClick={hideSide}  className="h-8 w-12 pl-3 hover:cursor-pointer transition-all duration-300 ease-in-out transform hover:scale-110 hover:rotate-6l " ></img>
          </div>
       <div className="flex items-center flex-col font-bold ">
-        {userPosts.slice(0, 4).map((p: any) => {
+        {userPosts.slice(0, 4).map((p: Blog) => {
              if(p.id==blogId){
               return <div></div>  
              }
 
             return (
           <div className="my-6 mx-2 rounded-3xl  " key={p.id}>
-              <BlogCard side={true} title={p.title} content={p.content} id={p.id} author={p.author} />
+              <BlogCard createdAt={p.createdAt} side={true} title={p.title} content={p.content} id={p.id} author={p.author} />
           </div>
             );
         })}
