@@ -4,7 +4,7 @@ import { BACKEND_URL } from "../../../config";
 import JoditEditor from 'jodit-react';
 import toast from "react-hot-toast";
 
-const BlogCard = () => {
+const WriteBlogCard = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const token = localStorage.getItem("token") || ""
@@ -98,4 +98,4 @@ const BlogCard = () => {
   );
 };
 
-export default BlogCard;
+export default WriteBlogCard;

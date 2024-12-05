@@ -14,67 +14,70 @@ export default function Blogs() {
     const [name, setName] = useRecoilState(UserName)
     const [posts, setBlogState] = useRecoilState(BlogState)
     const [loader, setloader] = useState(true)
-    localStorage.setItem("username",name)
+    localStorage.setItem("username", name)
 
     useEffect(() => {
-            if(Array.isArray(posts) && posts.length > 0){
+        if (Array.isArray(posts) && posts.length > 0) {
+            setloader(false)
+            return;
+        }
+        const fetchData = async () => {
+            const token = localStorage.getItem("token") || ""
+            try {
+
+                let res = await axios.get(`${BACKEND_URL}/api/v1/blog/bulk`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
+
+                setBlogState(res.data.posts)
+                setName(res.data.name.firstName)
+
                 setloader(false)
-                return;
-            } 
-            const fetchData = async () => {
-                const token = localStorage.getItem("token") || ""
-                try {
+            }
+            catch (e: any) {
+                toast.error("Not logged in");
+                navigate("/signin");
+            }
 
-                    let res = await axios.get(`${BACKEND_URL}/api/v1/blog/bulk`, {
-                        headers: {
-                            Authorization: `Bearer ${token}`
-                        }
-                    });
+        };
+        fetchData();
 
-                    setBlogState(res.data.posts)
-                     setName(res.data.name.firstName)
-                    
-                    setloader(false)
-                }
-                catch (e: any) {
-                    toast.error("Not logged in");
-                    navigate("/signin");
-                }
-               
-            };
-            fetchData();
 
-        
     }, [name])
-    
-    
+
+
 
     return (
         <div>
             {loader ? (
                 <div>
-                    <Appbar name={name.charAt(0).toUpperCase()}></Appbar>
+                    <Appbar ></Appbar>
                     <BarLoader
-  color="#16e612"
-  width={1000}
-/>
-<div className="w-screen h-screen bg-black"></div>
-                
+                        color="#16e612"
+                        width={1000}
+                    />
+                    <div className="w-screen h-screen bg-black"></div>
+
                 </div>
             ) : (
                 <div>      <div className=" fixed z-50 w-full   bg-black">
-                              <Appbar name={name.charAt(0).toUpperCase()}></Appbar> </div>
-                              <div className="pb-16 bg-black"></div>
-  
+                    <Appbar ></Appbar> </div>
+                    <div className="pb-16 "></div>
+                    <div className="bg-[url('https://img.freepik.com/free-photo/abstract-optical-laser-horizontal-background_23-2149116253.jpg?t=st=1733420522~exp=1733424122~hmac=cae12269225f7efff23ca9709a968079291a752cad23166ca81281a31596c19b&w=900')] lg:bg-fixed  ">
                     {posts.map((post: { title: string, content: string, id: string, author: { firstName: string, lastName: string, id: string } }) => {
                         return (
-                            <div className="flex  justify-center bg-black " key={post.id}>
-                                <div className=" my-6 mx-2 max-w-2xl w-screen rounded-full  bg-green-800 md:min-w-xl  ">
+                           
+                            <div className="flex  justify-center  " key={post.id}>
+                                <div className=" my-6 mx-2 max-w-2xl w-screen rounded-full  bg-green-900 md:min-w-xl  ">
                                     <Blogcard title={post.title} content={post.content} id={post.id} author={post.author} ></Blogcard>
                                 </div>
                             </div>
+                            
                         )
-                    })}
+                       
+                    })} </div>
                 </div>
             )}
         </div>

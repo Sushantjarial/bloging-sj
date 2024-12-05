@@ -1,7 +1,7 @@
 import { useSearchParams, useNavigate } from "react-router-dom";
 import Appbar from "../assets/components/appbar";
 import { useRecoilState } from "recoil";
-import { BlogState, UserName } from "../state/atoms";
+import { BlogState } from "../state/atoms";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { BACKEND_URL } from "../../config";
@@ -26,7 +26,6 @@ export default function OneBlog() {
   const [urlSearchParams] = useSearchParams();
   const id = urlSearchParams.get("id");
   const [posts, setPosts] = useRecoilState(BlogState);
-  const [name, setName] = useRecoilState(UserName);
   const[sideCard,setSideCard]=useState(true)
 
   const hideSide=()=>{
@@ -52,7 +51,6 @@ export default function OneBlog() {
 
         const fetchedPosts: Blog[] = res.data.posts;
         setPosts(fetchedPosts);
-        setName(res.data.name.firstName);
 
         const fetchedPost = fetchedPosts.find((p) => p.id === id);
         if (fetchedPost) setPost(fetchedPost);
@@ -63,12 +61,12 @@ export default function OneBlog() {
     };
 
     fetchData();
-  }, [id, post, setPosts, setName, navigate]);
+  }, [id, post, setPosts, navigate]);
 
   if (!(post && post.id==id)) {
     return(
     <div>
-    <Appbar name={name.charAt(0).toUpperCase()}></Appbar>
+    <Appbar></Appbar>
     <BarLoader
 color="#16e612"
 width={1000}
@@ -83,7 +81,7 @@ width={1000}
   return (
     <div className="">
       <div className=" ">
-      <Appbar name={name.charAt(0).toUpperCase()} />
+      <Appbar  />
       </div>
       <div className=" lg:grid grid-cols-12  bg-black h-screen ">
         <div className= {`lg:grid ${sideCard ? 'col-span-8 border-r ' : 'col-span-12 '}  shadow-lg lg:`} >

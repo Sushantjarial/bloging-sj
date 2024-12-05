@@ -1,11 +1,11 @@
 import Avatar from "./avatar";
 import { Link, useNavigate } from "react-router-dom";
 import write from "./../images/write.svg"
+const name=localStorage.getItem("username")
 interface Appbarprops{
-    name: string,
     writeIcon? : boolean
 }
-export default function Appbar({name,writeIcon}:Appbarprops){
+export default function Appbar({writeIcon}:Appbarprops){
     const navigate=useNavigate()
   
     return(
@@ -18,7 +18,7 @@ export default function Appbar({name,writeIcon}:Appbarprops){
             <div className="hidden lg:block text-green-500 mr-2 hover:text-green-200 text-xl ">Write</div>
             <img src={write} className="w-6  mr-4" alt="write" />
              </Link>
-            <Avatar name={name}  color="green" big={true} appBar={true}></Avatar>
+            <Avatar name={name?.charAt(0).toUpperCase()}  color="green" big={true} appBar={true}></Avatar>
             </div>
           
              </div>
