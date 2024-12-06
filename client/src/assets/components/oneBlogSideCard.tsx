@@ -26,10 +26,7 @@ const blogId=searchParms.get("id");
           }
 
         );
-        if((res.data.authorBlogs && res.data.authorBlogs.length<2)){
-          hideSide();
-          return;
-        }
+       
         setUserPosts(res.data.authorBlogs)
 
       };
