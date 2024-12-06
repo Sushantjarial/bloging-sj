@@ -24,10 +24,12 @@ blogRouter.post("/create", async (c) => {
         published: true,
       },
     });
+    c.status(200);
     return c.json({
       id: post.id,
     });
   } catch (e) {
+    c.status(501);
     return c.json({ message: "cannot connect to database please try again" });
   }
 });
@@ -61,42 +63,38 @@ blogRouter.put("/update", async (c) => {
 
 blogRouter.get("/bulk", async (c) => {
   const prisma = c.get("prisma");
-  const id=c.get("userId");
-  const name=await prisma.user.findUnique({
-
-    select:{
-      firstName:true,
-      lastName:true
-
+  const id = c.get("userId");
+  const name = await prisma.user.findUnique({
+    select: {
+      firstName: true,
+      lastName: true,
     },
-    where:{
-      id
-    }
-  })
+    where: {
+      id,
+    },
+  });
   const posts = await prisma.post.findMany({
-   
-    select:{
-        title:true,
-        content:true,
-        id:true,
-        author:{
-        select:{
-            firstName:true,
-            lastName:true
-
-        }
-        }
-
-    }
-
+    select: {
+      title: true,
+      content: true,
+      id: true,
+      createdAt: true,
+      author: {
+        select: {
+          id: true,
+          firstName: true,
+          lastName: true,
+        },
+      },
+    },
   });
 
-  return c.json({ posts , name });
+  return c.json({ posts, name });
 });
 
 blogRouter.get("/load/", async (c) => {
   const id = c.req.query("id");
-  const userId=c.get("userId");
+  const userId = c.get("userId");
   const prisma = c.get("prisma");
   try {
     const post = await prisma.post.findUnique({
@@ -104,23 +102,104 @@ blogRouter.get("/load/", async (c) => {
         id: id,
       },
     });
-    const name=await prisma.user.findUnique({
-      select:{
-        firstName:true,
-        lastName:true
+    const name = await prisma.user.findUnique({
+      select: {
+        firstName: true,
+        lastName: true,
       },
-      where:{
-        id:userId
-      }
-    })
+      where: {
+        id: userId,
+      },
+    });
 
     return c.json({
-      post, name
+      post,
+      name,
     });
   } catch (e) {
     return c.json({
       message: "something went wrong",
     });
+  }
+});
+blogRouter.get("/userblogs", async (c) => {
+  const id = c.req.query("authorId") || "";
+  const prisma = c.get("prisma");
+  try {
+    const authorBlogs = await prisma.post.findMany({
+      select: {
+        title: true,
+        content: true,
+        id: true,
+        createdAt: true,
+        author: {
+          select: {
+            id: true,
+            firstName: true,
+            lastName: true,
+          },
+        },
+      },
+      where: {
+        authorId: id,
+      },
+    });
+    c.status(200);
+    return c.json({ authorBlogs });
+  } catch (e) {
+    c.status(500);
+    return c.json({
+      error: e,
+    });
+  }
+});
+
+blogRouter.get("/myblogs", async (c) => {
+  const id = c.get("userId");
+  const prisma = c.get("prisma");
+  try {
+    const authorBlogs = await prisma.post.findMany({
+      select: {
+        title: true,
+        content: true,
+        id: true,
+        createdAt: true,
+        author: {
+          select: {
+            id: true,
+            firstName: true,
+            lastName: true,
+          },
+        },
+      },
+      where: {
+        authorId: id,
+      },
+    });
+    c.status(200);
+    return c.json({ authorBlogs });
+  } catch (e) {
+    c.status(500);
+    return c.json({
+      error: e,
+    });
+  }
+});
+blogRouter.delete("/delete", async (c) => {
+  const id = c.req.query("blogId") || "";
+  const prisma = c.get("prisma");
+  try {
+    await prisma.post.delete({
+      where: {
+        id,
+      },
+    });
+
+    c.status(200);
+    return c.json({ message: "Post deleted successfully" });
+  } catch (e) {
+    c.status(500);
+    return c.json({ message: "Failed to delete post", error: e });
   }
 });
 
