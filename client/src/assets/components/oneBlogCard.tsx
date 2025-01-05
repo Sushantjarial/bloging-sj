@@ -14,7 +14,7 @@ export const formatDate = (date:any) => {
 
 export default function OneBlogCard({post,hideSide}:t){
     return(
-    <div className=" bg-black  ">
+    <div className=" bg-black   ">
         <div className="px-2 pl-4  lg:px-20 py-4 place-items-start text-slate-100  ">
         <h1 className="text-4xl font-extrabold py-4  ">{post.title}</h1>
        
@@ -27,7 +27,7 @@ export default function OneBlogCard({post,hideSide}:t){
         <img src={arrow} className="w-12 h-12 hover:cursor-pointer  " ></img>
 
         </div>
-        <div   className="text-2xl leading-relaxed text-slate-300 text-start" 
+        <div   className="text-2xl leading-relaxed text-slate-300 text-start   max-w-full overflow-x-auto" 
          dangerouslySetInnerHTML={{ __html: post.content }}
         ></div>
         </div>

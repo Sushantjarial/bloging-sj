@@ -64,18 +64,18 @@ export default function BlogCard({ side, title, content, id, author, deleteIcon,
     <div className="relative flex flex-col bg-black bg-opacity-100  rounded-full p-3   text-white  shadow-sm   shadow-black  border-b-2 border-r-2 border-green-500 hover:bg-opacity-80 ">
     
       <Link className="font-bold text-xl pb-1  px-2 hover:underline
-            transition-all transform hover:translate-x-2 hover:shadow-xl  duration-300 cursor-pointer text-green-600" to={`/blog/?id=${id}`}>{title.length < 70 ? title : title.slice(0, 50) + "..."}</Link>
+            transition-all transform hover:translate-x-2 hover:shadow-xl  duration-300 cursor-pointer text-green-600" to={`/blog/?id=${id}`}>{title.length < 80 ? title : title.slice(0, 50) + "..."}</Link>
             
             
    
 
       <div className="opacity-65 lg:hidden text-start px-2"
-        dangerouslySetInnerHTML={{ __html: text.length < 200 ? text : text.slice(0, 80) + "..." }}
+        dangerouslySetInnerHTML={{ __html:  text.slice(0, 80) + "..." }}
       >
 
       </div>
       <div className="opacity-65 hidden lg:block text-start px-2"
-        dangerouslySetInnerHTML={{ __html: (side) ? text.length < 200 ? text : text.slice(0, 80) + "..." : text.length < 200 ? text : text.slice(0, 200) + "..." }}
+        dangerouslySetInnerHTML={{ __html: (side) ? text.slice(0, 80) + "..." :  text.slice(0, 200) + "..." }}
       >
 
       </div>

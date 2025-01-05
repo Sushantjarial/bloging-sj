@@ -52,7 +52,7 @@ export default function Blogs() {
     return (
         <div>
             {loader ? (
-                <div>
+                <div className=" overflow-hidden">
                     <Appbar ></Appbar>
                     <BarLoader
                         color="#16e612"

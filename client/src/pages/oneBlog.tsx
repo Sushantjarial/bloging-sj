@@ -66,7 +66,7 @@ export default function OneBlog() {
 
   if (!(post && post.id==id)) {
     return(
-    <div>
+    <div className="overflow-hidden">
     <Appbar></Appbar>
     <BarLoader
 color="#16e612"
@@ -80,12 +80,12 @@ width={1000}
   }
 
   return (
-    <div className="">
+    <div className=" ">
       <div className=" ">
       <Appbar  />
       </div>
-      <div className=" lg:grid grid-cols-12  bg-black h-screen ">
-        <div className= {`lg:grid ${sideCard ? 'col-span-8 border-r ' : 'col-span-12 '}  shadow-lg lg:`} >
+      <div className=" lg:grid grid-cols-12  bg-black">
+        <div className= {`lg:grid ${sideCard ? 'col-span-8 border-r ' : 'col-span-12 '}  shadow-lg  overflow-hidden lg:`} >
           <OneBlogCard post={post}
            hideSide={hideSide}   ></OneBlogCard>
         </div>
