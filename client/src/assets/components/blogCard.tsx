@@ -69,11 +69,11 @@ export default function BlogCard({ side, title, content, id, author, deleteIcon,
             
    
 
-      <div className="opacity-65 lg:hidden text-start px-2"
-        dangerouslySetInnerHTML={{ __html:  text.slice(0, 80) + "..." }}
+      <Link className="opacity-65 lg:hidden text-start px-2 cursor-pointer"
+        dangerouslySetInnerHTML={{ __html:  text.slice(0, 80) + "..." }} to={`/blog/?id=${id}`}
       >
 
-      </div>
+      </Link>
       <div className="opacity-65 hidden lg:block text-start px-2"
         dangerouslySetInnerHTML={{ __html: (side) ? text.slice(0, 80) + "..." :  text.slice(0, 200) + "..." }}
       >
@@ -82,14 +82,14 @@ export default function BlogCard({ side, title, content, id, author, deleteIcon,
       <div className=" font-extralight  pt-3   flex flex-row gap-6 pl-10 items-center justify-end mr-16">
 
         <div className={` flex opacity-40 items-center ${deleteIcon?"sm: hidden":" "} `}  >
-          <div className="w-6 h-6 bg-white rounded-full text-black  font-bold  text-center opacity-70 ">
+          {/* <div className="w-5 h-5 bg-white rounded-full text-black  font-bold text-sm text-center opacity-70 ">
             {author.firstName.charAt(0).toUpperCase()}
-          </div>
-          <div className="font-light  opacity-70 pl-2">{author.firstName} </div>
+          </div> */}
+          <div className=" text-sm   pl-1">{author.firstName} </div>
         </div>
-        <div className="opacity-40">{formatDate(createdAt)}</div>
+        <div className="opacity-40 text-sm">{formatDate(createdAt)}</div>
 
-        <div className="opacity-40">{readingTime} min</div>
+        <div className="opacity-40 text-sm">{readingTime} min</div>
         <img src={trash} onClick={()=>setShowWarning(true)}  className={`w-5 h-5 ${deleteIcon?"":"hidden"} hover:opacity-40 cursor-pointer  ` }  ></img>
 
 

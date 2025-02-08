@@ -14,7 +14,7 @@ export const formatDate = (date:any) => {
 
 export default function OneBlogCard({post,hideSide}:t){
     return(
-    <div className=" bg-black   ">
+    <div className=" bg-black min-h-screen ">
         <div className="px-2 pl-4  lg:px-20 py-4 place-items-start text-slate-100  ">
         <h1 className="text-4xl font-extrabold py-4  ">{post.title}</h1>
        

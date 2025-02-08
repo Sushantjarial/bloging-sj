@@ -83,17 +83,22 @@ width={1000}
     <div className=" ">
       <div className=" ">
       <Appbar  />
-      </div>
+      </div >
       <div className=" lg:grid grid-cols-12  bg-black">
         <div className= {`lg:grid ${sideCard ? 'col-span-8 border-r ' : 'col-span-12 '}  shadow-lg  overflow-hidden lg:`} >
           <OneBlogCard post={post}
            hideSide={hideSide}   ></OneBlogCard>
         </div>
+
         <div className={`hidden lg:${sideCard ? 'block' : 'hidden'} col-span-4 bg-black overflow-hidden`} >
-          <div>
-            
+       <div>
+       <div className="w-[1px] h-full bg-gradient-to-b from-transparent via-green-400 to-transparent " />    
         <OneBlogSideCard id={post.author.id} hideSide ={hideSide} ></OneBlogSideCard>
         </div>
+        </div>
+        <div className="md:hidden">
+        <div className=" h-[2px] bg-gradient-to-r from-transparent via-gray-400 to-transparent" />
+        <OneBlogSideCard id={post.author.id} hideSide ={hideSide} ></OneBlogSideCard>
         </div>
       </div>
     </div>
