@@ -5,12 +5,9 @@ import BlogCard from "../assets/components/blogCard";
 import grid from "./../assets/images/grid.png";
 import { BACKEND_URL } from "../../config";
 import { Blog } from "./oneBlog";
-import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
 
 export default function MyBlogs() {
     const [posts, setPosts] = useState<Blog[]>();
-    const navigate=useNavigate()
     useEffect(() => {
         const fetch = async () => {
             const token = localStorage.getItem("token") || "";
@@ -19,10 +16,7 @@ export default function MyBlogs() {
                     Authorization: `Bearer ${token}`
                 }
             });
-            if(res.data.authorBlogs.length<1){
-                toast.error("You haven't published any blogs 🙃")
-                navigate("/blogs")
-            }
+        
             setPosts(res.data.authorBlogs);
         };
         fetch();
@@ -39,8 +33,8 @@ export default function MyBlogs() {
                                 <BlogCard createdAt={post.createdAt} deleteIcon={true} title={post.title} content={post.content} id={post.id} author={post.author} />
                             </div>
                         </div>
-                    );
-                })}
+                    )
+                })}:<div className=" text-green-500 justify-center flex text-3xl h-96  font-serif items-center ">You haven't published any blogs</div>
             </div>
         </div>
     );

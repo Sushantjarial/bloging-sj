@@ -3,6 +3,7 @@ import { Bindings, Variables } from "../src";
 import { sign, verify } from "hono/jwt";
 import { z } from "zod";
 import { signupInput, signinInput } from "@sushantjarial/blog-common";
+import { authMiddleware } from "../middlewares/auth";
 
 const userRouter = new Hono<{ Bindings: Bindings; Variables: Variables }>();
 
@@ -67,5 +68,89 @@ userRouter.post("/signin", async (c) => {
     });
   }
 });
+
+userRouter.get('/userInformation',authMiddleware,async(c)=>{
+  const userId=c.get("userId")
+  const prisma=c.get("prisma")
+  
+
+  try{
+      const user= await prisma.user.findUnique({
+select: {
+  firstName: true,
+  lastName: true,
+  email: true,
+  
+},
+where: {
+              id:userId
+          }
+      })
+
+      return c.json({
+          user
+      
+      })
+  }
+  catch(e){
+    c.status(400)
+      return c.json({
+          error:e
+      })
+  }
+})
+
+userRouter.put("/updateUserInformation",authMiddleware,async(c)=>{
+
+  const prisma=c.get("prisma")
+  const userId=c.get("userId")
+  const body= await c.req.json()
+  console.log(userId)
+
+  try{
+
+      const {success,error}=signupInput.safeParse(body);
+      
+      if(!success){
+          c.status(403)
+          return c.json({
+              error:error.issues
+          })
+      }
+
+      const user = await prisma.user.update({
+          where: {
+              id: userId,
+              password:body.password
+
+          },
+          data:body
+      })
+
+      if (!user) {
+          c.status(404)
+          return c.json({
+              error: "User not found"
+          })
+      }
+      
+      return c.json({
+          message:"updated user information"
+      })
+
+  }
+  catch(e){
+      c.status(400)
+      console.log(userId)
+      console.log(body)
+      return c.json({
+          error:e
+      })
+  }
+})
+
+
+
+
 
 export default userRouter;

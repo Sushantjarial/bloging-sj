@@ -50,7 +50,7 @@ export default function Blogs() {
 
 
     return (
-        <div>
+        <div className="scroll-smooth">
             {loader ? (
                 <div className=" overflow-hidden">
                     <Appbar ></Appbar>
