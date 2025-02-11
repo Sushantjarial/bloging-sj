@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react"
 import { BACKEND_URL } from "../../config"
 import axios from "axios"
-import { useNavigate } from "react-router-dom"
 import Appbar from "../assets/components/appbar"
 import toast from "react-hot-toast"
 
@@ -19,7 +18,6 @@ export default function UpdateProfile() {
         email: '',
         password: ''
     });
-    const navigate = useNavigate();
 
     useEffect(() => {
         const token = localStorage.getItem("token")
