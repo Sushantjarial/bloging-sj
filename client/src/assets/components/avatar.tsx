@@ -30,6 +30,7 @@ export default function Avatar({ name, color, big ,appBar }: AvatarProps) {
                    
                         <Link to="/myBlogs" className="hover:bg-green-600  cursor-pointer px-4 py-2">My Blogs </Link>
                 
+                        <Link to="/updateProfile" className="hover:bg-green-600  cursor-pointer px-4 py-2">Update Profile </Link>
                      
                         
                         <Link className="px-4 py-2 hover:bg-green-900 cursor-pointer flex text-red-500 font-extralight items-center " to="/signin" onClick={()=>localStorage.clear()}>
