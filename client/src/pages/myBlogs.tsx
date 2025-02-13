@@ -7,26 +7,34 @@ import { BACKEND_URL } from "../../config";
 import { Blog } from "./oneBlog";
 
 export default function MyBlogs() {
-    const [posts, setPosts] = useState<Blog[]>();
+    const [posts, setPosts] = useState<Blog[]>([]);
+    const [loading, setLoading] = useState(true);
     useEffect(() => {
-        const fetch = async () => {
-            const token = localStorage.getItem("token") || "";
-            const res = await axios.get(`${BACKEND_URL}/api/v1/blog/myblogs`, {
+
+        try {
+            const fetch = async () => {
+                const token = localStorage.getItem("token") || "";
+                const res = await axios.get(`${BACKEND_URL}/api/v1/blog/myblogs`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
             });
         
             setPosts(res.data.authorBlogs);
+            setLoading(false);
         };
         fetch();
+        } catch (error) {
+            console.log(error);
+        }
     }, []);
 
     return (
+        loading?<div className="flex justify-center items-center h-screen">loading...</div>:
         <div>
             <Appbar />
             <div className="min-h-screen bg-cover bg-black bg-center" style={{ backgroundImage: `url(${grid})` }}>
-                {posts?.map((post: Blog) => {
+                {(posts.length>0)?posts.map((post: Blog) => {
                     return (
                         <div className="flex justify-center bg-transparent" key={post.id}>
                             <div className="my-6 mx-2 max-w-2xl w-screen rounded-full flex bg-green-800 md:min-w-xl">
@@ -34,7 +42,7 @@ export default function MyBlogs() {
                             </div>
                         </div>
                     )
-                })}:<div className=" text-green-500 justify-center flex text-3xl h-96  font-serif items-center ">You haven't published any blogs</div>
+                }):<div className=" text-green-500 justify-center flex text-3xl h-96  font-serif items-center ">You haven't published any blogs</div>}
             </div>
         </div>
     );
