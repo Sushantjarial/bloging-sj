@@ -72,7 +72,7 @@ export default function OneBlog() {
 color="#16e612"
 width={1000}
 />
-<div></div>
+<div className="bg-black h-screen wi-screen"></div>
 
 </div>
     )

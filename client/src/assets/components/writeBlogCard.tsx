@@ -15,7 +15,7 @@ const WriteBlogCard = () => {
     theme: 'dark',
     colors: {
       greyscale: ['#000000', '#434343', '#666666', '#999999', '#B7B7B7', '#CCCCCC', '#D9D9D9', '#EFEFEF', '#F3F3F3', '#FFFFFF'],
-      palette: ['#1B4D3E', '#008F11', '#00FF41', '#2F4F4F', '#008080', '#2E8B57', '#3CB371', '#90EE90', '#98FB98', '#00FA9A']
+      palette: ['#22c55e', '#16a34a', '#15803d', '#166534', '#14532d', '#052e16', '#86efac', '#4ade80', '#22c55e', '#16a34a']
     },
     buttons: [
       'source', '|',
@@ -60,50 +60,73 @@ const WriteBlogCard = () => {
         background-color: #000 !important;
       }
       .jodit-toolbar-button {
-        color: #fff !important;
+        color: #22c55e !important;
       }
       .jodit-toolbar-button__icon {
-        fill: #fff !important;
+        fill: #22c55e !important;
       }
       .jodit-toolbar-button:hover {
-        background-color: #1f2937 !important;
+        background-color: #052e16 !important;
       }
       .jodit-container {
         border-color: #22c55e !important;
       }
       .jodit-workplace {
-        background-color: #111 !important;
-        color: #fff !important;
+        background-color: #000 !important;
+        color: #22c55e !important;
       }
       .jodit-status-bar {
         background-color: #000 !important;
         border-color: #22c55e !important;
-        color: #fff !important;
+        color: #22c55e !important;
       }
       .jodit-ui-group_separated_true:not(:last-child):after {
         border-color: #22c55e !important;
       }
       .jodit-wysiwyg {
-        color: #fff !important;
+        color: #22c55e !important;
       }
       .jodit-toolbar-button__text {
-        color: #fff !important;
+        color: #22c55e !important;
       }
       .jodit-toolbar-content {
-        color: #fff !important;
+        color: #22c55e !important;
       }
-      /* New styles for status bar elements */
       .jodit-status-bar > * {
-        color: #fff !important;
+        color: #22c55e !important;
       }
       .jodit-status-bar__item {
-        color: #fff !important;
+        color: #22c55e !important;
       }
       .jodit-status-bar__item-right {
-        color: #fff !important;
+        color: #22c55e !important;
       }
       .jodit-status-bar a {
         color: #22c55e !important;
+      }
+      .jodit-popup {
+        background-color: #000 !important;
+        border-color: #22c55e !important;
+      }
+      .jodit-popup__content {
+        background-color: #000 !important;
+      }
+      .jodit-toolbar-popup {
+        background-color: #000 !important;
+      }
+      .jodit-toolbar-popup__content {
+        background-color: #000 !important;
+      }
+      .jodit-dialog__header {
+        background-color: #000 !important;
+        border-color: #22c55e !important;
+      }
+      .jodit-dialog__content {
+        background-color: #000 !important;
+      }
+      .jodit-dialog__footer {
+        background-color: #000 !important;
+        border-color: #22c55e !important;
       }
     `
   };

@@ -40,7 +40,7 @@ export default function Signincard() {
         );
         const { token } = res.data;
         localStorage.setItem("token", token);
-        navigate("/blogs");
+        navigate("/");
         toast.success("signed in");
       }
     } catch (e: any) {
@@ -57,13 +57,8 @@ export default function Signincard() {
   };
 
   return (
-    <div
-      className="  flex flex-col my-auto py-6 px-2 w-80 bg-white  justify-center rounded-3xl shadow-xl shadow-black 
-         "
-    >
-      <div className="text-green-600 text-4xl font-bold  flex justify-center p-2 ">
-        Sign in
-      </div>
+    <div className="flex flex-col my-auto py-6 px-2 w-80 bg-black text-green-500 justify-center rounded-3xl shadow-xl shadow-green-500/50">
+      <div className="text-green-500 text-4xl font-bold flex justify-center p-2">Sign in</div>
       <div className="flex flex-col justify-center mt-3">
         <Inputfield
           onChange={(e) =>
@@ -83,13 +78,13 @@ export default function Signincard() {
         ></Inputfield>
         <button
           onClick={sendRequest}
-          className="bg-green-500 p-1 mt-4 mx-4 rounded-md hover:bg-green-600"
+          className="bg-green-500 p-1 mt-4 mx-4 rounded-md text-black hover:bg-green-600 transition-colors duration-200"
         >
           Sign in
         </button>
         <Bottomwarning
           warning="Create an account?"
-          to="/"
+          to="/signup"
           name="Sign up"
         ></Bottomwarning>
       </div>

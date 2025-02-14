@@ -58,7 +58,7 @@ export default function Blogs() {
                         color="#16e612"
                         width={1000}
                     />
-                    <div className="w-screen h-screen bg-black"></div>
+                       <div className="bg-[url('https://img.freepik.com/free-photo/abstract-optical-laser-horizontal-background_23-2149116253.jpg?t=st=1733420522~exp=1733424122~hmac=cae12269225f7efff23ca9709a968079291a752cad23166ca81281a31596c19b&w=900')] lg:bg-fixed min-h-screen  "></div>
 
                 </div>
             ) : (

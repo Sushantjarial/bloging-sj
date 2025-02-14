@@ -5,6 +5,7 @@ import BlogCard from "../assets/components/blogCard";
 import grid from "./../assets/images/grid.png";
 import { BACKEND_URL } from "../../config";
 import { Blog } from "./oneBlog";
+import BarLoader from "react-spinners/BarLoader";
 
 export default function MyBlogs() {
     const [posts, setPosts] = useState<Blog[]>([]);
@@ -30,7 +31,15 @@ export default function MyBlogs() {
     }, []);
 
     return (
-        loading?<div className="flex justify-center items-center h-screen">loading...</div>:
+        loading?<div className=" overflow-hidden ">
+            <Appbar></Appbar>
+    <BarLoader
+color="#16e612"
+width={1000}
+/>
+<div className="min-h-screen bg-cover bg-black bg-center" style={{ backgroundImage: `url(${grid})` }}></div>
+
+        </div>:
         <div>
             <Appbar />
             <div className="min-h-screen bg-cover bg-black bg-center" style={{ backgroundImage: `url(${grid})` }}>

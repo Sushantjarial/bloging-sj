@@ -9,7 +9,7 @@ export default function Appbar({writeIcon}:Appbarprops){
   const name=localStorage.getItem("username")
     return(
         <div className="pb w-full  flex justify-between bg-black border-green-500 border-b px-4 py-3 items-center shadow-sm shadow-green-500">
-            <Link className=" cursor-pointer  flex text-green-500 text-3xl   " to="/blogs">
+            <Link className=" cursor-pointer font-serif flex text-green-500 text-3xl   " to="/">
            OPENVERSE
             </Link>
                 

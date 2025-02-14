@@ -27,7 +27,7 @@ export default function Signupcard(){
    const {token} = res.data ;
    localStorage.setItem("token",token)
    localStorage.setItem("username",signInput.firstName)
-    navigate("/blogs")
+    navigate("/")
    
     } }
     catch(e:any){
@@ -39,18 +39,18 @@ export default function Signupcard(){
     }
  }
     return(
-        <div className="  flex flex-col my-auto py-6 px-2 w-80 bg-white  justify-center rounded-3xl shadow-xl shadow-black 
+        <div className="flex flex-col my-auto py-6 px-2 w-80 bg-black text-green-500 justify-center rounded-3xl shadow-xl shadow-green-500/50
          ">
-            <div className="text-green-600 text-4xl font-bold  flex justify-center p-2 ">Sign up</div>
+            <div className="text-green-500 text-4xl font-bold flex justify-center p-2">Sign up</div>
            <div className="flex flex-col justify-center mt-3">
             <Inputfield  onChange={(e)=>setSignupInput ({...signInput ,firstName:e.target.value})} name="First Name"  placeholder="Tony"></Inputfield>
             <Inputfield onChange={(e)=>setSignupInput ({...signInput ,lastName:e.target.value})} name="Last Name"  placeholder="Stark"></Inputfield>
             <Inputfield onChange={(e)=>setSignupInput ({...signInput ,email:e.target.value})} name="Email" type="email" placeholder="EDITH@gmail.com"></Inputfield>
             <Inputfield onChange={(e)=>setSignupInput ({...signInput ,password:e.target.value})} name="Password" type="password" placeholder="IamIronMan$3000" ></Inputfield>
-            <button onClick={sendRequest} className="bg-green-500 p-1 mt-2 mx-4 rounded-md hover:bg-green-600">Sign up</button>
+            <button onClick={sendRequest} className="bg-green-500 p-1 mt-2 mx-4 rounded-md text-black hover:bg-green-600 transition-colors duration-200">Sign up</button>
             <Bottomwarning warning="Already have an account?" to="/signin" name="Sign in"></Bottomwarning>
             </div>
-            </div>
+        </div>
     )
 }
 
