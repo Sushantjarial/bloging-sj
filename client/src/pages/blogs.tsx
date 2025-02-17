@@ -52,32 +52,31 @@ export default function Blogs() {
     return (
         <div className="scroll-smooth">
             {loader ? (
-                <div className=" overflow-hidden">
-                    <Appbar writeIcon={true} ></Appbar>
+                <div className="overflow-hidden">
+                    <Appbar writeIcon={true}></Appbar>
                     <BarLoader
                         color="#16e612"
                         width={1000}
                     />
-                       <div className="bg-[url('https://img.freepik.com/free-photo/abstract-optical-laser-horizontal-background_23-2149116253.jpg?t=st=1733420522~exp=1733424122~hmac=cae12269225f7efff23ca9709a968079291a752cad23166ca81281a31596c19b&w=900')] lg:bg-fixed min-h-screen  "></div>
-
+                    <div className="min-h-screen bg-gradient-to-br from-black via-green-900 to-black animate-gradient-slow bg-[length:400%_400%]"></div>
                 </div>
             ) : (
-                <div>      <div className=" fixed z-50 w-full   bg-black">
-                    <Appbar writeIcon={true} ></Appbar> </div>
-                    <div className="pb-16 "></div>
-                    <div className="bg-[url('https://img.freepik.com/free-photo/abstract-optical-laser-horizontal-background_23-2149116253.jpg?t=st=1733420522~exp=1733424122~hmac=cae12269225f7efff23ca9709a968079291a752cad23166ca81281a31596c19b&w=900')] lg:bg-fixed min-h-screen  ">
-                    {posts.map((post: Blog) => {
-                        return (
-                           
-                            <div className="flex  justify-center  " key={post.id}>
-                                <div className=" my-6 mx-2 max-w-2xl w-screen rounded-full  bg-green-900 md:min-w-xl  ">
-                                    <Blogcard createdAt={post.createdAt} title={post.title} content={post.content} id={post.id} author={post.author} ></Blogcard>
+                <div>
+                    <div className="fixed z-50 w-full bg-black">
+                        <Appbar writeIcon={true}></Appbar>
+                    </div>
+                    <div className="pb-16"></div>
+                    <div className="min-h-screen bg-gradient-to-br from-black via-green-900 to-black animate-gradient-slow bg-[length:400%_400%]">
+                        {posts.map((post: Blog) => {
+                            return (
+                                <div className="flex justify-center" key={post.id}>
+                                    <div className="my-6 mx-2 max-w-2xl w-screen rounded-full bg-green-900 md:min-w-xl">
+                                        <Blogcard createdAt={post.createdAt} title={post.title} content={post.content} id={post.id} author={post.author}></Blogcard>
+                                    </div>
                                 </div>
-                            </div>
-                            
-                        )
-                       
-                    })} </div>
+                            )
+                        })}
+                    </div>
                 </div>
             )}
         </div>

@@ -14,7 +14,7 @@ export default function Inputfield({name,placeholder,type,onChange}:inputType){
             <input  
                 onChange={onChange} 
                 type={type ||"text"} 
-                className="p-1 mx-2 flex justify-center border-2 border-white bg-black text-white focus:border-green-500 hover:border-green-600 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500" 
+                className="p-1 mx-2 flex justify-center  bg-black text-white focus:border-green-500 hover:border-green-600 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500" 
                 placeholder={placeholder}>
             </input>
         </div>
