@@ -58,7 +58,7 @@ export default function Blogs() {
                         color="#16e612"
                         width={1000}
                     />
-                    <div className="min-h-screen bg-gradient-to-br from-black via-green-900 to-black animate-gradient-slow bg-[length:400%_400%]"></div>
+                    <div className="min-h-screen bg-gradient-to-r from-black via-green-950 to-black"></div>
                 </div>
             ) : (
                 <div>
@@ -66,7 +66,7 @@ export default function Blogs() {
                         <Appbar writeIcon={true}></Appbar>
                     </div>
                     <div className="pb-16"></div>
-                    <div className="min-h-screen bg-gradient-to-br from-black via-green-900 to-black animate-gradient-slow bg-[length:400%_400%]">
+                    <div className="min-h-screen bg-gradient-to-r from-black via-green-950 to-black">
                         {posts.map((post: Blog) => {
                             return (
                                 <div className="flex justify-center" key={post.id}>

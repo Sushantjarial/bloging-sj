@@ -36,11 +36,11 @@ export default function MyBlogs() {
                 color="#16e612"
                 width={1000}
             />
-            <div className="min-h-screen bg-gradient-to-r from-black via-green-950 to-black animate-gradient-x"></div>
+            <div className="min-h-screen bg-gradient-to-r from-black via-green-950 to-black"></div>
         </div> :
         <div>
             <Appbar writeIcon={true} />
-            <div className="min-h-screen bg-gradient-to-r from-black via-green-950 to-black animate-gradient-x overflow-y-auto">
+            <div className="min-h-screen bg-gradient-to-r from-black via-green-950 to-black overflow-y-auto">
                 {(posts.length > 0) ? posts.map((post: Blog, index: number) => {
                     return (
                         <div className="flex justify-center bg-transparent" key={post.id} style={{ animationDelay: `${index * 0.1}s` }}>

@@ -127,7 +127,8 @@ export default function BlogCard({ side, title, content, id, author, deleteIcon,
     >
       <Link 
         className="font-bold text-xl pb-1 px-2 text-green-600 
-                   transition-all duration-300 hover:translate-x-2" 
+                   transition-all duration-300 hover:translate-x-2
+                   hover:underline" 
         to={`/blog/?id=${id}`}
       >
         {title.length < 80 ? title : title.slice(0, 50) + "..."}
