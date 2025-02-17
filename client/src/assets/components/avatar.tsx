@@ -26,7 +26,7 @@ export default function Avatar({ name, color, big ,appBar }: AvatarProps) {
                 {name?.charAt(0).toUpperCase()}
             </div>
             {dropdownVisible && (
-                <div className="flex flex-col absolute right-0 mt-2 w-48 bg-black text-white border border-green-500 rounded-md shadow-lg ">
+                <div className="flex flex-col absolute right-0 mt-2 z-50 w-48 bg-black text-white border border-green-500 rounded-md shadow-lg ">
                    
                         <Link to="/myBlogs" className="hover:bg-green-600  cursor-pointer px-4 py-2">My Blogs </Link>
                 
