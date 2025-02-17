@@ -82,7 +82,7 @@ width={1000}
   return (
     <div className=" ">
       <div className=" ">
-      <Appbar  />
+      <Appbar writeIcon={true} />
       </div >
       <div className=" lg:grid grid-cols-12  bg-black">
         <div className= {`lg:grid ${sideCard ? 'col-span-8 border-r ' : 'col-span-12 '}  shadow-lg  overflow-hidden lg:`} >

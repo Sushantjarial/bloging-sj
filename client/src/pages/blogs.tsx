@@ -53,7 +53,7 @@ export default function Blogs() {
         <div className="scroll-smooth">
             {loader ? (
                 <div className=" overflow-hidden">
-                    <Appbar ></Appbar>
+                    <Appbar writeIcon={true} ></Appbar>
                     <BarLoader
                         color="#16e612"
                         width={1000}
@@ -63,7 +63,7 @@ export default function Blogs() {
                 </div>
             ) : (
                 <div>      <div className=" fixed z-50 w-full   bg-black">
-                    <Appbar ></Appbar> </div>
+                    <Appbar writeIcon={true} ></Appbar> </div>
                     <div className="pb-16 "></div>
                     <div className="bg-[url('https://img.freepik.com/free-photo/abstract-optical-laser-horizontal-background_23-2149116253.jpg?t=st=1733420522~exp=1733424122~hmac=cae12269225f7efff23ca9709a968079291a752cad23166ca81281a31596c19b&w=900')] lg:bg-fixed min-h-screen  ">
                     {posts.map((post: Blog) => {

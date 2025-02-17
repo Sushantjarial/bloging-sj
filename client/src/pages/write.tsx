@@ -4,7 +4,7 @@ import WriteBlogCard from "../assets/components/writeBlogCard";
 export default function Write(){
     return(
         <div className="">
-            <Appbar  writeIcon={true}></Appbar>
+            <Appbar></Appbar>
 
             <WriteBlogCard></WriteBlogCard>
         </div>

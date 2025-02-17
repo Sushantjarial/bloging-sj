@@ -1,18 +1,15 @@
-import Quote from "../assets/components/quote";
-import Auth from "../assets/components/auth";
 import Signupcard from "../assets/components/signupcard";
+import Appbar from "../assets/components/appbar";
 
 export default function Signup(){
     return(
-       < div className="grid grid-cols-1 lg:grid-cols-2 " >
-      
-      <Auth Card={<Signupcard></Signupcard>}></Auth>
-        <div className=" hidden md:block">    
-            <Quote></Quote>
-            </div>
-         
-
-    </div> 
+     
+    <div>
+    <Appbar auth="Signup" ></Appbar>
+<div className="bg-black h-screen w-full flex justify-center items-center " >
+<Signupcard></Signupcard>
+</div>
+</div>
     )
 
 }

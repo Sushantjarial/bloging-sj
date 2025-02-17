@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import trash from "../images/trash.png"
 import axios from "axios";
@@ -32,11 +32,42 @@ export const formatDate = (date:any) => {
   return format(new Date(date), 'MMM d '); 
 };
 
+const cardAnimationKeyframes = `
+  @keyframes cardBorderGlow {
+    0%, 100% {
+      border-color: #22c55e;
+      box-shadow: 0 0 10px rgba(34, 197, 94, 0.2);
+    }
+    50% {
+      border-color: #16a34a;
+      box-shadow: 0 0 20px rgba(34, 197, 94, 0.4);
+    }
+  }
+`;
+
+const scrollAnimationKeyframes = `
+  @keyframes fadeSlideUp {
+    0% {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+`;
+
+const style = document.createElement('style');
+style.innerHTML = cardAnimationKeyframes + scrollAnimationKeyframes;
+document.head.appendChild(style);
+
 export default function BlogCard({ side, title, content, id, author, deleteIcon,createdAt }: t) {
   const [readingTime, setReadingTime] = useState(0);
   const [text, setText] = useState(" ")
   const [showWarning,setShowWarning]=useState(false)
-
+  const [isVisible, setIsVisible] = useState(false);
+  const cardRef = useRef<HTMLDivElement>(null);
 
   const handleDelete=async()=>{
 
@@ -60,53 +91,91 @@ export default function BlogCard({ side, title, content, id, author, deleteIcon,
     setReadingTime(time);
     setText(textt)
   }, [content]);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.unobserve(entry.target);
+        }
+      },
+      {
+        threshold: 0.1,
+        rootMargin: '50px'
+      }
+    );
+
+    if (cardRef.current) {
+      observer.observe(cardRef.current);
+    }
+
+    return () => {
+      if (cardRef.current) {
+        observer.unobserve(cardRef.current);
+      }
+    };
+  }, []);
+
   return (
-    <div className="relative flex flex-col bg-black bg-opacity-100  rounded-full p-3   text-white  shadow-sm   shadow-black  border-b-2 border-r-2 border-green-500 hover:bg-opacity-80 ">
-    
-      <Link className="font-bold text-xl pb-1  px-2 hover:underline
-            transition-all transform hover:translate-x-2 hover:shadow-xl  duration-300 cursor-pointer text-green-600" to={`/blog/?id=${id}`}>{title.length < 80 ? title : title.slice(0, 50) + "..."}</Link>
-            
-            
-   
-
-      <Link className="opacity-65 lg:hidden text-start px-2 cursor-pointer"
-        dangerouslySetInnerHTML={{ __html:  text.slice(0, 80) + "..." }} to={`/blog/?id=${id}`}
+    <div 
+      ref={cardRef}
+      className={`relative flex flex-col bg-black bg-opacity-100 rounded-full p-3 text-white 
+                  border-b-2 border-r-2 border-green-500 
+                  hover:bg-opacity-80 transition-all duration-300
+                  ${isVisible ? 'animate-[fadeSlideUp_0.6s_ease-out_forwards]' : 'opacity-0'}`}
+    >
+      <Link 
+        className="font-bold text-xl pb-1 px-2 text-green-600 
+                   transition-all duration-300 hover:translate-x-2" 
+        to={`/blog/?id=${id}`}
       >
-
+        {title.length < 80 ? title : title.slice(0, 50) + "..."}
       </Link>
-      <div className="opacity-65 hidden lg:block text-start px-2"
-        dangerouslySetInnerHTML={{ __html: (side) ? text.slice(0, 80) + "..." :  text.slice(0, 200) + "..." }}
-      >
 
-      </div>
-      <div className=" font-extralight  pt-3   flex flex-row gap-6 pl-10 items-center justify-end mr-16">
+      <Link 
+        className="opacity-65 lg:hidden text-start px-2 cursor-pointer"
+        dangerouslySetInnerHTML={{ __html: text.slice(0, 80) + "..." }} 
+        to={`/blog/?id=${id}`}
+      />
 
-        <div className={` flex opacity-40 items-center ${deleteIcon?"sm: hidden":" "} `}  >
-          {/* <div className="w-5 h-5 bg-white rounded-full text-black  font-bold text-sm text-center opacity-70 ">
-            {author.firstName.charAt(0).toUpperCase()}
-          </div> */}
-          <div className=" text-sm   pl-1">{author.firstName} </div>
+      <div 
+        className="opacity-65 hidden lg:block text-start px-2"
+        dangerouslySetInnerHTML={{ __html: (side) ? text.slice(0, 80) + "..." : text.slice(0, 200) + "..." }}
+      />
+
+      <div className="font-extralight pt-3 flex flex-row gap-6 pl-10 items-center justify-end mr-16">
+        <div className={`flex opacity-40 items-center ${deleteIcon?"sm:hidden":""}`}>
+          <div className="text-sm pl-1">{author.firstName}</div>
         </div>
         <div className="opacity-40 text-sm">{formatDate(createdAt)}</div>
-
         <div className="opacity-40 text-sm">{readingTime} min</div>
-        <img src={trash} onClick={()=>setShowWarning(true)}  className={`w-5 h-5 ${deleteIcon?"":"hidden"} hover:opacity-40 cursor-pointer  ` }  ></img>
-
-
+        <img 
+          src={trash} 
+          onClick={() => setShowWarning(true)} 
+          className={`w-5 h-5 ${deleteIcon?"":"hidden"} 
+                     hover:opacity-40 cursor-pointer transition-opacity duration-300`}
+        />
       </div>
+
       {showWarning && (
-        <div className=" absolute  top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center">
-          <div className="rounded-xl bg-black p-4  shadow-md">
+        <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 
+                      flex items-center justify-center">
+          <div className="rounded-xl bg-black p-4 shadow-md">
             <p>Are you sure you want to delete this post?</p>
             <div className="flex justify-between mt-4">
-                <button
-                className=" bg-green-400 ease-out hover:bg-green-800 text-black font-semibold px-4 py-2 rounded transition-all duration-300"
-                onClick={() => { setShowWarning(false) }}
-                >
-                Cancel
-                </button>
               <button
-                className=" bg-red-500 hover:bg-red-800 duration-300 transition-all ease-in text-black px-4 py-2 font-semibold rounded"
+                className="bg-green-400 text-black font-semibold px-4 py-2 rounded
+                         transition-colors duration-300
+                         hover:bg-green-800"
+                onClick={() => setShowWarning(false)}
+              >
+                Cancel
+              </button>
+              <button
+                className="bg-red-500 text-black px-4 py-2 font-semibold rounded
+                         transition-colors duration-300
+                         hover:bg-red-800"
                 onClick={handleDelete}
               >
                 Delete
@@ -115,8 +184,6 @@ export default function BlogCard({ side, title, content, id, author, deleteIcon,
           </div>
         </div>
       )}
-
-
     </div>
   );
 }

@@ -1,13 +1,13 @@
-import Auth from "../assets/components/auth";
-import Quote from "../assets/components/quote";
+import Appbar from "../assets/components/appbar";
 import Signincard from "../assets/components/signincard";
 
 export default function Signin(){
     return(
-        <div className="grid grid-cols-1 lg:grid-cols-2 ">
-            <Auth Card={<Signincard></Signincard>}></Auth>
-          <div className="hidden lg:block"> <Quote></Quote></div> 
-
+        <div>
+            <Appbar auth="Signin" ></Appbar>
+        <div className="bg-black h-screen w-full flex justify-center items-center " >
+            <Signincard></Signincard>
+        </div>
         </div>
     )
 }

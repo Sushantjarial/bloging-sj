@@ -41,11 +41,11 @@ width={1000}
 
         </div>:
         <div>
-            <Appbar />
-            <div className="min-h-screen bg-cover bg-black bg-center" style={{ backgroundImage: `url(${grid})` }}>
-                {(posts.length>0)?posts.map((post: Blog) => {
+            <Appbar writeIcon={true} />
+            <div className="min-h-screen bg-cover bg-black bg-center overflow-y-auto" style={{ backgroundImage: `url(${grid})` }}>
+                {(posts.length>0)?posts.map((post: Blog, index: number) => {
                     return (
-                        <div className="flex justify-center bg-transparent" key={post.id}>
+                        <div className="flex justify-center bg-transparent" key={post.id} style={{ animationDelay: `${index * 0.1}s` }}>
                             <div className="my-6 mx-2 max-w-2xl w-screen rounded-full flex bg-green-800 md:min-w-xl">
                                 <BlogCard createdAt={post.createdAt} deleteIcon={true} title={post.title} content={post.content} id={post.id} author={post.author} />
                             </div>
