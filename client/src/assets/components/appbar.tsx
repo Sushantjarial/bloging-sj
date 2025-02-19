@@ -21,7 +21,7 @@ export default function Appbar({writeIcon,auth}:Appbarprops){
             <Link className={` ${(writeIcon)?`block`:`hidden`}  flex items-center mr-11 lg:mr-20 `} to={"/write"} > 
             
             <div className="hidden lg:block text-green-500  hover:text-green-200 text-xl ">Write</div>
-            <img src={write} className="w-6 mb-1 ml-1  " alt="write" />
+            <img src={write} className=" w-8 lg:w-6    mb-1 ml-2   " alt="write" />
              </Link>
             
              {auth?

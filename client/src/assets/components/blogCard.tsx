@@ -120,13 +120,13 @@ export default function BlogCard({ side, title, content, id, author, deleteIcon,
   return (
     <div 
       ref={cardRef}
-      className={`relative flex flex-col bg-black bg-opacity-100 rounded-full p-3 text-white 
-                  border-b-2 border-r-2 border-green-500 
+      className={`relative flex flex-col bg-black bg-opacity-100 text-white rounded-full p-3  
+                  border-r-2 border-b-2 border-green-500 
                   hover:bg-opacity-80 transition-all duration-300
                   ${isVisible ? 'animate-[fadeSlideUp_0.6s_ease-out_forwards]' : 'opacity-0'}`}
     >
       <Link 
-        className="font-bold text-xl pb-1 px-2 text-green-600 
+        className="font-bold lg:text-xl  pb-1 px-6 md:px-8 text-green-600 
                    transition-all duration-300 hover:translate-x-2
                    hover:underline" 
         to={`/blog/?id=${id}`}
@@ -135,13 +135,13 @@ export default function BlogCard({ side, title, content, id, author, deleteIcon,
       </Link>
 
       <Link 
-        className="opacity-65 lg:hidden text-start px-2 cursor-pointer"
+        className="opacity-65 md:hidden text-sm  text-start px-6  cursor-pointer"
         dangerouslySetInnerHTML={{ __html: text.slice(0, 80) + "..." }} 
         to={`/blog/?id=${id}`}
       />
 
       <div 
-        className="opacity-65 hidden lg:block text-start px-2"
+        className="opacity-65 hidden md:block text-start px-8"
         dangerouslySetInnerHTML={{ __html: (side) ? text.slice(0, 80) + "..." : text.slice(0, 200) + "..." }}
       />
 

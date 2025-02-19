@@ -55,7 +55,7 @@ export default function Blogs() {
                 <div className="overflow-hidden">
                     <Appbar writeIcon={true}></Appbar>
                     <BarLoader
-                        color="#16e612"
+                        color="#22c55e"
                         width={1000}
                     />
                     <div className="min-h-screen bg-gradient-to-r from-black via-green-950 to-black"></div>

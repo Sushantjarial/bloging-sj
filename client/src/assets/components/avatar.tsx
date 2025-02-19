@@ -12,18 +12,27 @@ export default function Avatar({ name, color, big ,appBar }: AvatarProps) {
     const [dropdownVisible, setDropdownVisible] = useState(false);
 
     const toggleDropdown = () => {
-        if(!appBar)return;
-        
+        if(!appBar) return;
         setDropdownVisible(!dropdownVisible);
+    };
+
+    const getBackgroundColor = () => {
+        switch(color) {
+            case 'blue': return 'bg-blue-500';
+            case 'green': return 'bg-green-500';
+            default: return 'bg-green-500';
+        }
     };
 
     return (
         <div className="relative">
             <div
                 onClick={toggleDropdown}
-                className={`${big ? 'w-9 h-9 text-3xl' : 'w-6 h-6'} ${color ? `bg-${color}-500` : 'bg-green-500'} rounded-full font-bold text-center text-black ${appBar?"cursor-pointer":""}`}
+                className={`flex items-center justify-center ${big ? 'w-9 h-9 text-3xl' : 'w-6 h-6'} 
+                ${getBackgroundColor()} rounded-full font-bold text-white 
+                ${appBar ? "cursor-pointer hover:opacity-90 transition-opacity" : ""}`}
             >
-                {name?.charAt(0).toUpperCase()}
+                {name}
             </div>
             {dropdownVisible && (
                 <div className="flex flex-col absolute right-0 mt-2 z-50 w-48 bg-black text-white border border-green-500 rounded-md shadow-lg ">
