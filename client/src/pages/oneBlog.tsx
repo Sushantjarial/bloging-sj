@@ -147,7 +147,7 @@ export default function OneBlog() {
       <Appbar writeIcon={true} />
       
       <div className="lg:grid grid-cols-12 gap-0 max-w-8xl mx-auto relative">
-        <div className={`lg:grid ${sideCard ? 'col-span-8' : 'col-span-12'} transition-all duration-300`}>
+        <div className={`lg:grid ${sideCard ? 'col-span-8' : 'col-span-12'} `}>
           <OneBlogCard post={post} hideSide={hideSide} />
         </div>
 
@@ -159,14 +159,14 @@ export default function OneBlog() {
           <div className="sticky top-0">
             <div className="absolute left-0 w-[1px] h-full bg-gradient-to-b from-transparent via-green-500/40 to-transparent" />
             <div className="pl-4">
-              <OneBlogSideCard id={post.author.id} hideSide={hideSide} />
+              <OneBlogSideCard id={post.author.id}  />
             </div>
           </div>
         </div>
 
         <div className="lg:hidden w-full">
           <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-green-500/40 to-transparent my-4" />
-          <OneBlogSideCard id={post.author.id} hideSide={hideSide} />
+          <OneBlogSideCard id={post.author.id}  />
         </div>
       </div>
     </div>

@@ -49,7 +49,7 @@ export default function MyBlogs() {
                             </div>
                         </div>
                     )
-                }): <div className="text-green-500 justify-center flex text-3xl h-96 font-serif items-center">You haven't published any blogs</div>}
+                }): <div className="text-green-500 justify-center flex text-xl md:text-3xl h-96 font-serif items-center ">You haven't published any blogs😒</div>}
             </div>
         </div>
     );

@@ -163,7 +163,7 @@ const WriteBlogCard = () => {
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-black">
-      <div className="bg-black shadow-sm shadow-green-500 border border-green-500 rounded-lg p-8 w-full max-w-6xl sm:my-4">
+      <div className="bg-black shadow-sm shadow-green-500 border border-green-500 rounded-lg p-8 w-full max-w-6xl my-4">
         <h2 className="text-2xl font-semibold text-green-500 mb-4">New Blog Post</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">

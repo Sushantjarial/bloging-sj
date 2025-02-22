@@ -5,7 +5,7 @@ import { Blog } from "../../pages/oneBlog";
 import BlogCard from "./blogCard";
 import { useSearchParams } from "react-router-dom";
 
-export default function OneBlogSideCard({ id  }: { id: string , hideSide:()=>void }) {
+export default function OneBlogSideCard({ id  }: { id: string  }) {
 const [userPosts,setUserPosts]=useState<Blog[]>([])
 const[searchParms]=useSearchParams()
 const blogId=searchParms.get("id");
