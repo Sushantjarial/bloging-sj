@@ -1,5 +1,5 @@
 import axios from "axios";
-import  { useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { BACKEND_URL } from "../../../config";
 import JoditEditor from 'jodit-react';
 import toast from "react-hot-toast";
@@ -7,9 +7,10 @@ import toast from "react-hot-toast";
 const WriteBlogCard = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const token = localStorage.getItem("token") || ""
+  const token = localStorage.getItem("token") || "";
   const editor = useRef(null);
-  const [isPublishing,setIsPublishing]=useState(false)
+  const [isPublishing, setIsPublishing] = useState(false);
+
   const config = {
     height: 500,
     theme: 'dark',
@@ -131,34 +132,32 @@ const WriteBlogCard = () => {
     `
   };
 
-  const handleSubmit = async (e:any) => {
-    if(!title || !content){
-      toast.error("All fields are required")
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!title || !content) {
+      toast.error("All fields are required");
       return;
     }
-    e.preventDefault();
     if (isPublishing) {
       toast.error("Please wait before publishing again.");
       return;
     }
     setIsPublishing(true);
     setTimeout(() => setIsPublishing(false), 5000);
-    try{
-     await axios.post(
-      `${BACKEND_URL}/api/v1/blog/create`,
-      { title, content },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`
+    try {
+      await axios.post(
+        `${BACKEND_URL}/api/v1/blog/create`,
+        { title, content },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
         }
-      }
-    );
-    toast.success("published");
-  }
-  catch(e:any){
-    toast.error("cannot publish right now try again after some time")
-  }
-
+      );
+      toast.success("Published");
+    } catch (e: any) {
+      toast.error("Cannot publish right now, try again after some time");
+    }
   };
 
   return (
@@ -189,13 +188,12 @@ const WriteBlogCard = () => {
             >
               Content
             </label>
-         
-          <JoditEditor
-          ref={editor}
-          value={content}
-          config={config}
-          onBlur={newContent => setContent(newContent)}
-          />
+            <JoditEditor
+              ref={editor}
+              value={content}
+              config={config}
+              onBlur={newContent => setContent(newContent)}
+            />
           </div>
           <button 
             disabled={isPublishing}

@@ -17,6 +17,7 @@ export default function Blogs() {
     
 
     useEffect(() => {
+
         if (Array.isArray(posts) && posts.length > 0) {
             setloader(false)
             return;
@@ -33,7 +34,7 @@ export default function Blogs() {
 
                 setBlogState(res.data.posts)
                 localStorage.setItem("username", res.data.name.firstName)
-
+                localStorage.setItem("userId", res.data.id)
                 setloader(false)
             }
             catch (e: any) {
