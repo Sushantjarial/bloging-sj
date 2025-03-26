@@ -8,6 +8,7 @@ import { RecoilRoot } from "recoil"
 import Write from "./pages/write"
 import MyBlogs from "./pages/myBlogs"
 import UpdateProfile from "./pages/updateProfile"
+import AuthorBlogs from "./pages/authorBlogs"
 function App() {
 
   return (
@@ -26,7 +27,7 @@ function App() {
     <Route path="/write" element={<Write></Write>} ></Route>
     <Route path="/myblogs" element={<MyBlogs></MyBlogs>}></Route>
     <Route path="/updateprofile" element={<UpdateProfile></UpdateProfile>}></Route>
-     
+    <Route path="/author/:id" element={<AuthorBlogs></AuthorBlogs>}></Route>
     </Routes> 
     </RecoilRoot>
 
