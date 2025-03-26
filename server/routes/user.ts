@@ -148,7 +148,62 @@ userRouter.put("/updateUserInformation",authMiddleware,async(c)=>{
       })
   }
 })
+userRouter.get("/load/", async (c) => {
+  const id = c.req.query("id");
+  const prisma = c.get("prisma");
+  try {
+    const post = await prisma.post.findUnique({
+      where: {
+        id: id,
+      },
+      include: {
+        author: {
+          select: {
+            firstName: true,
+            lastName: true,
+          },
+        },
+      },
+    });
+   
+    return c.json({
+      post
+    });
+  } catch (e) {
+    return c.json({
+      message: "something went wrong",
+    });
+  }
+});
 
+userRouter.get("/authorBlogs/", async (c) => {
+  const id = c.req.query("id");
+  const prisma = c.get("prisma");
+  try {
+    const posts =await prisma.post.findMany({
+      where:{
+        authorId:id
+      },
+      include: {
+        author: {
+          select: {
+            firstName: true,
+            lastName: true,
+          },
+        },
+      },
+    })
+    return c.json({
+      posts
+    });
+  } catch (e) {
+    c.status(400)
+    return c.json({
+      
+      message: "something went wrong",
+    });
+  }
+});
 
 
 

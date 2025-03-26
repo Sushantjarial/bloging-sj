@@ -17,6 +17,7 @@ export const authMiddleware = createMiddleware<{
   try {
     const user = await verify(token, c.env.SECRET);
     const userId = String(user.id);
+    console.log(userId , "userId")
     c.set("userId", userId);
     await next();
   } catch (error) {

@@ -89,7 +89,7 @@ blogRouter.get("/bulk", async (c) => {
     },
   });
 
-  return c.json({ posts, name });
+  return c.json({ posts, name ,id });
 });
 
 blogRouter.get("/load/", async (c) => {
