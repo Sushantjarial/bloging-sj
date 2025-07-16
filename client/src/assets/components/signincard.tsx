@@ -63,8 +63,12 @@ const pulseShadowKeyframes = `
   }
 `;
 
-const style = document.createElement('style');
-style.innerHTML = fadeInKeyframes + slideUpKeyframes + borderAnimationKeyframes + pulseShadowKeyframes;
+const style = document.createElement("style");
+style.innerHTML =
+  fadeInKeyframes +
+  slideUpKeyframes +
+  borderAnimationKeyframes +
+  pulseShadowKeyframes;
 document.head.appendChild(style);
 
 export default function Signincard() {
@@ -95,7 +99,7 @@ export default function Signincard() {
         toast.error("All fields are required");
       } else {
         const res = await axios.post(
-        `${BACKEND_URL}/api/v1/user/signin` ,
+          `${BACKEND_URL}/api/v1/user/signin`,
           signInput
         );
         const { token } = res.data;
@@ -118,10 +122,14 @@ export default function Signincard() {
 
   return (
     <div className="relative p-[3px] rounded-3xl animate-[borderAnimation_3s_ease-in-out_infinite]">
-      <div className="flex flex-col py-6 px-2 w-80 bg-black text-green-500 justify-center rounded-3xl
+      <div
+        className="flex flex-col py-6 px-2 w-80 bg-black text-green-500 justify-center rounded-3xl
                     opacity-0 translate-y-12 
-                    animate-[fadeIn_0.5s_ease-out_forwards,slideUp_0.5s_ease-out_forwards]">
-        <div className="text-green-500 text-4xl font-bold flex justify-center p-2">Sign in</div>
+                    animate-[fadeIn_0.5s_ease-out_forwards,slideUp_0.5s_ease-out_forwards]"
+      >
+        <div className="text-green-500 text-4xl font-bold flex justify-center p-2">
+          Sign in
+        </div>
         <div className="flex flex-col justify-center mt-3">
           <Inputfield
             onChange={(e) =>
@@ -129,7 +137,7 @@ export default function Signincard() {
             }
             name="Email"
             type="email"
-            placeholder="EDITH@gmail.com"
+            placeholder="ironman@gmail.com"
           ></Inputfield>
           <Inputfield
             onChange={(e) =>
@@ -137,7 +145,7 @@ export default function Signincard() {
             }
             name="Password"
             type="password"
-            placeholder="Iamironman$3000"
+            placeholder="ironman3000"
           ></Inputfield>
           <button
             onClick={sendRequest}
@@ -145,7 +153,6 @@ export default function Signincard() {
           >
             Sign in
           </button>
-         
         </div>
       </div>
     </div>
