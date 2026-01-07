@@ -11,7 +11,7 @@ export default function Appbar({writeIcon,auth}:Appbarprops){
     return(
         <div className="w-full  flex justify-between bg-black border-green-500 border-b px-4 py-3 items-center  shadow-green-500">
             <Link className=" cursor-pointer font-serif flex text-green-500 text-3xl px-3 " to="/">
-             <div className=" font-serif font-extrabold  pr-2">openverse</div>  
+             <div className=" font- font-extrabold  pr-2">openverse</div>  
             
             
             </Link>

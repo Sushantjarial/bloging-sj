@@ -13,12 +13,12 @@ export interface Blog {
   id: string;
   title: string;
   content: string;
-  createdAt:string,
+  createdAt: string;
   author: {
     firstName: string;
     lastName: string;
-    id: string
   };
+  authorId: string;
 }
 
 export default function OneBlog() {
@@ -26,11 +26,11 @@ export default function OneBlog() {
   const [urlSearchParams] = useSearchParams();
   const id = urlSearchParams.get("id");
   const [posts, setPosts] = useRecoilState(BlogState);
-  const[sideCard,setSideCard]=useState(false)
+  const [sideCard, setSideCard] = useState(false);
 
-  const hideSide=()=>{
-    setSideCard(!sideCard)
-  }
+  const hideSide = () => {
+    setSideCard(!sideCard);
+  };
 
   const [post, setPost] = useState<Blog | null>(
     posts.find((p) => p.id === id) || null
@@ -40,12 +40,14 @@ export default function OneBlog() {
     if (post && post.id === id) return;
 
     const fetchData = async () => {
-      
       try {
-        const res = await axios.get(`${BACKEND_URL}/api/v1/user/load/?id=${id}`);
+        const res = await axios.get(
+          `${BACKEND_URL}/api/v1/user/load/?id=${id}`
+        );
 
-        const fetchedPost= res.data.post;
- setPost(fetchedPost);
+        const fetchedPost = res.data.post;
+        console.log(fetchedPost);
+        setPost(fetchedPost);
       } catch (e: any) {
         toast.error("Not logged in");
         navigate("/signin");
@@ -55,12 +57,12 @@ export default function OneBlog() {
     fetchData();
   }, [id, post, setPosts, navigate]);
 
-  if (!(post && post.id==id)) {
-    return(
+  if (!(post && post.id == id)) {
+    return (
       <div className="min-h-screen bg-black">
         <div className="fixed inset-0 bg-gradient-to-b from-green-500/10 via-green-500/5 to-transparent pointer-events-none"></div>
-        {token?<Appbar />:<Appbar auth="Signup" />    }
-        
+        {token ? <Appbar /> : <Appbar auth="Signup" />}
+
         <div className="lg:grid grid-cols-12 gap-0 max-w-8xl mx-auto relative">
           <div className="col-span-12">
             <div className="px-4 lg:px-24 py-8 text-slate-100 max-w-5xl mx-auto">
@@ -69,7 +71,7 @@ export default function OneBlog() {
                 <div className="h-10 bg-gray-800/50 rounded-lg w-3/4 animate-pulse"></div>
                 <div className="h-6 bg-gray-800/50 rounded-lg w-1/2 animate-pulse"></div>
               </div>
-              
+
               <div className="flex items-center justify-between mb-8">
                 <div className="flex items-center space-x-3">
                   <div className="w-12 h-12 bg-gray-800/50 rounded-full animate-pulse"></div>
@@ -78,7 +80,6 @@ export default function OneBlog() {
                     <div className="h-3 bg-gray-800/50 rounded w-24 animate-pulse"></div>
                   </div>
                 </div>
-               
               </div>
 
               <div className="w-full h-64 bg-gray-800/50 rounded-lg mb-8 animate-pulse"></div>
@@ -127,36 +128,35 @@ export default function OneBlog() {
           </div>
         </div>
       </div>
-    )
+    );
   }
 
   return (
     <div className="min-h-screen bg-black">
       <div className="fixed inset-0 bg-gradient-to-b from-green-500/10 via-green-500/5 to-transparent pointer-events-none"></div>
-      {token? <Appbar writeIcon={true} />:<Appbar auth="Signup" />    }
-     
-      
+      {token ? <Appbar writeIcon={true} /> : <Appbar auth="Signup" />}
+
       <div className="lg:grid grid-cols-12 gap-0 max-w-8xl mx-auto relative">
-        <div className={`lg:grid ${sideCard ? 'col-span-8' : 'col-span-12'} `}>
+        <div className={`lg:grid ${sideCard ? "col-span-8" : "col-span-12"} `}>
           <OneBlogCard post={post} hideSide={hideSide} />
         </div>
 
-        <div 
+        <div
           className={`hidden lg:block col-span-4 relative ${
-            sideCard ? 'opacity-100' : 'opacity-0'
+            sideCard ? "opacity-100" : "opacity-0"
           } transition-opacity duration-300`}
         >
           <div className="sticky top-0">
             <div className="absolute left-0 w-[1px] h-full bg-gradient-to-b from-transparent via-green-500/40 to-transparent" />
             <div className="pl-4">
-              <OneBlogSideCard id={post.author.id}  />
+              <OneBlogSideCard id={post.authorId} />
             </div>
           </div>
         </div>
 
         <div className="lg:hidden w-full">
           <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-green-500/40 to-transparent my-4" />
-          <OneBlogSideCard id={post.author.id}  />
+          <OneBlogSideCard id={post.authorId} />
         </div>
       </div>
     </div>

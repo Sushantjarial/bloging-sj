@@ -178,7 +178,7 @@ const WriteBlogCard = () => {
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder="Enter your blog title"
-              className="w-full px-4 py-2 border bg-black text-green-400 border-green-500 rounded-lg focus:ring-2  placeholder-gray-500"
+              className="w-full px-4 py-2 border bg-black text-green-400 border-green-500 rounded-lg  placeholder-gray-500"
             />
           </div>
           <div className="mb-4">

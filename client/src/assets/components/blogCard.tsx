@@ -1,35 +1,33 @@
 import { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
-import trash from "../images/trash.png"
+import trash from "../images/trash.png";
 import axios from "axios";
 import { BACKEND_URL } from "../../../config";
 import toast from "react-hot-toast";
-import { format } from 'date-fns';
+import { format } from "date-fns";
 
 interface t {
   title: string;
   content: string;
-  id: string
-  createdAt:string
+  id: string;
+  createdAt: string;
   author: {
-    firstName: string,
-    lastName: string
-    id: string
-  }
-  side?: boolean
-  deleteIcon?: boolean
+    firstName: string;
+    lastName: string;
+  };
+  side?: boolean;
+  deleteIcon?: boolean;
+  authorId?: string;
 }
 function calculateReadingTime(htmlContent: string): [number, string] {
-
-
   const plainText = htmlContent.replace(/<[^>]+>/g, "");
   const words = plainText.trim().split(/\s+/);
   const wordsPerMinute = 150;
   const readingTime = Math.ceil(words.length / wordsPerMinute);
   return [readingTime, plainText];
 }
-export const formatDate = (date:any) => {
-  return format(new Date(date), 'MMM d '); 
+export const formatDate = (date: any) => {
+  return format(new Date(date), "MMM d ");
 };
 
 const cardAnimationKeyframes = `
@@ -58,38 +56,45 @@ const scrollAnimationKeyframes = `
   }
 `;
 
-const style = document.createElement('style');
+const style = document.createElement("style");
 style.innerHTML = cardAnimationKeyframes + scrollAnimationKeyframes;
 document.head.appendChild(style);
 
-export default function BlogCard({ side, title, content, id, author, deleteIcon,createdAt }: t) {
+export default function BlogCard({
+  side,
+  title,
+  content,
+  id,
+  author,
+  deleteIcon,
+  createdAt,
+  authorId,
+}: t) {
   const [readingTime, setReadingTime] = useState(0);
-  const [text, setText] = useState(" ")
-  const [showWarning,setShowWarning]=useState(false)
+  const [text, setText] = useState(" ");
+  const [showWarning, setShowWarning] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
 
-  const handleDelete=async()=>{
-
+  const handleDelete = async () => {
     const token = localStorage.getItem("token") || "";
-    try{
-   await axios.delete(`${BACKEND_URL}/api/v1/blog/delete?blogId=${id}`, {
+    try {
+      await axios.delete(`${BACKEND_URL}/api/v1/blog/delete?blogId=${id}`, {
         headers: {
-            Authorization: `Bearer ${token}`
-        }
-    });
-    toast.success(" post deleted")
-    setShowWarning(false)
-  }
-  catch{
-    toast.error("Cannot delete right now try again later")
-  }
-}
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      toast.success(" post deleted");
+      setShowWarning(false);
+    } catch {
+      toast.error("Cannot delete right now try again later");
+    }
+  };
 
   useEffect(() => {
     const [time, textt] = calculateReadingTime(content);
     setReadingTime(time);
-    setText(textt)
+    setText(textt);
   }, [content]);
 
   useEffect(() => {
@@ -102,7 +107,7 @@ export default function BlogCard({ side, title, content, id, author, deleteIcon,
       },
       {
         threshold: 0.1,
-        rootMargin: '50px'
+        rootMargin: "50px",
       }
     );
 
@@ -118,65 +123,77 @@ export default function BlogCard({ side, title, content, id, author, deleteIcon,
   }, []);
 
   return (
-    <div 
+    <div
       ref={cardRef}
-      className={`relative flex flex-col bg-black bg-opacity-100 text-white rounded-full p-3  
+      className={`relative flex flex-col bg-black bg-opacity-100 text-white rounded-lg p-4 md:p-6
                   border-r-2 border-b-2 border-green-500 
                   hover:bg-opacity-80 transition-all duration-300
-                  ${isVisible ? 'animate-[fadeSlideUp_0.6s_ease-out_forwards]' : 'opacity-0'}`}
+                  ${
+                    isVisible
+                      ? "animate-[fadeSlideUp_0.6s_ease-out_forwards]"
+                      : "opacity-0"
+                  }`}
     >
-      <Link 
-        className="font-bold lg:text-xl  pb-1 px-6 md:px-8 text-green-600 
+      <Link
+        className="font-bold text-base md:text-xl pb-2 px-0 md:px-2 text-green-600 
                    transition-all duration-300 hover:translate-x-2
-                   hover:underline" 
+                   hover:underline line-clamp-3"
         to={`/blog/?id=${id}`}
       >
-        {title.length < 80 ? title : title.slice(0, 50) + "..."}
+        {title}
       </Link>
 
-      <Link 
-        className="opacity-65 md:hidden text-sm  text-start px-6  cursor-pointer"
-        dangerouslySetInnerHTML={{ __html: text.slice(0, 80) + "..." }} 
+      <Link
+        className="opacity-65 md:hidden text-sm text-start px-0 pb-3 cursor-pointer line-clamp-3"
+        dangerouslySetInnerHTML={{ __html: text.slice(0, 80) + "..." }}
         to={`/blog/?id=${id}`}
       />
 
-      <div 
-        className="opacity-65 hidden md:block text-start px-8"
-        dangerouslySetInnerHTML={{ __html: (side) ? text.slice(0, 80) + "..." : text.slice(0, 200) + "..." }}
+      <div
+        className="opacity-65 hidden md:block text-start px-2 pb-3"
+        dangerouslySetInnerHTML={{
+          __html: side ? text.slice(0, 80) + "..." : text.slice(0, 200) + "...",
+        }}
       />
 
-      <div className="font-extralight pt-3 flex flex-row gap-6 pl-10 items-center justify-end mr-16">
-        <div className={`flex opacity-40 items-center ${deleteIcon?"sm:hidden":""}`}>
-          <div className="text-sm pl-1">{author.firstName}</div>
+      <div className="font-extralight pt-3 flex flex-row gap-2 md:gap-4 items-center flex-wrap">
+        <div className={`flex opacity-40 items-center ${deleteIcon ? "" : ""}`}>
+          <div className="text-sm">{author.firstName}</div>
         </div>
         <div className="opacity-40 text-sm">{formatDate(createdAt)}</div>
         <div className="opacity-40 text-sm">{readingTime} min</div>
-        <img 
-          src={trash} 
-          onClick={() => setShowWarning(true)} 
-          className={`w-5 h-5 ${deleteIcon?"":"hidden"} 
-                     hover:opacity-40 cursor-pointer transition-opacity duration-300`}
-        />
+        <button
+          onClick={() => setShowWarning(true)}
+          className={`flex items-center gap-1 ml-auto opacity-40 hover:opacity-100 transition-opacity ${
+            deleteIcon ? "" : "hidden"
+          }`}
+        >
+          <img src={trash} alt="delete" className="w-5 h-5 cursor-pointer" />
+        </button>
       </div>
 
       {showWarning && (
-        <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 
-                      flex items-center justify-center">
-          <div className="rounded-xl bg-black p-4 shadow-md">
-            <p>Are you sure you want to delete this post?</p>
-            <div className="flex justify-between mt-4">
+        <div
+          className="absolute inset-0 bg-black bg-opacity-50 
+                      flex items-center justify-center rounded-lg"
+        >
+          <div className="rounded-lg bg-black p-6 shadow-md border border-green-500 border-opacity-30 mx-4">
+            <p className="text-white mb-4">
+              Are you sure you want to delete this post?
+            </p>
+            <div className="flex justify-end gap-3">
               <button
-                className="bg-green-400 text-black font-semibold px-4 py-2 rounded
+                className="bg-gray-700 text-white font-semibold px-4 py-2 rounded
                          transition-colors duration-300
-                         hover:bg-green-800"
+                         hover:bg-gray-600"
                 onClick={() => setShowWarning(false)}
               >
                 Cancel
               </button>
               <button
-                className="bg-red-500 text-black px-4 py-2 font-semibold rounded
+                className="bg-red-600 text-white px-4 py-2 font-semibold rounded
                          transition-colors duration-300
-                         hover:bg-red-800"
+                         hover:bg-red-700"
                 onClick={handleDelete}
               >
                 Delete

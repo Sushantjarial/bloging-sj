@@ -49,7 +49,9 @@ export default function OneBlogCard({post, hideSide}: BlogPost) {
 
         window.addEventListener('scroll', handleScroll);
         handleScroll();
-        return () => window.removeEventListener('scroll', handleScroll);
+        return () =>{ window.removeEventListener('scroll', handleScroll);
+            
+        }
     }, []);
 
     return (
