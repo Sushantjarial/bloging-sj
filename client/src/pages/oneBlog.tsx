@@ -163,7 +163,7 @@ export default function OneBlog() {
             </div>
           </div>
 
-          <div className="lg:hidden mt-8">
+          <div className="lg:hidden ">
             <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-green-500/40 to-transparent mb-8" />
             <div className="bg-black bg-opacity-50 border border-green-500 border-opacity-30 rounded-lg p-6">
               <OneBlogSideCard id={authorId || post.authorId} />

@@ -64,7 +64,7 @@ export default function OneBlogSideCard({ id }: { id: string }) {
         {userPosts.slice(0, 4).map((p: Blog) => {
           if (userPosts.length <= 1) {
             return (
-              <div className="text-green-500  font-thin mt-7 flex   ">
+              <div className="text-green-500  font-thin  flex   ">
                 {p.author.firstName} haven't published any more blogs
               </div>
             );
@@ -91,7 +91,7 @@ export default function OneBlogSideCard({ id }: { id: string }) {
       </div>
     </div>
   ) : (
-    <div className="text-green-500 font-thin   mt-7 p-4 text-lg  lg:block ">
+    <div className="text-green-500 font-thin   p-4 text-lg  lg:block ">
       {userPosts.map((p: Blog) => (
         <div>{p.author.firstName + " haven't published any more blogs"}</div>
       ))}
