@@ -143,7 +143,7 @@ const WriteBlogCard = () => {
       return;
     }
     setIsPublishing(true);
-    setTimeout(() => setIsPublishing(false), 5000);
+
     try {
       await axios.post(
         `${BACKEND_URL}/api/v1/blog/create`,
@@ -155,6 +155,7 @@ const WriteBlogCard = () => {
         }
       );
       toast.success("Published");
+      setIsPublishing(false);
     } catch (e: any) {
       toast.error("Cannot publish right now, try again after some time");
     }

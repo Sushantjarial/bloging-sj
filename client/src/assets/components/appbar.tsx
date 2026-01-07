@@ -14,7 +14,7 @@ export default function Appbar({
   return (
     <div className="w-full  font-sans flex justify-between bg-black border-green-500 border-b px-3 sm:px-4 md:px-6 py-2.5 sm:py-3 items-center shadow-green-500">
       <Link
-        className="cursor-pointer flex text-green-500 text-2xl  md:text-3xl px-1 sm:px-2"
+        className="cursor-pointer flex text-green-500 text-3xl   px-1 sm:px-2"
         to="/"
       >
         <div className="font-sans font-extrabold">Openverse</div>
