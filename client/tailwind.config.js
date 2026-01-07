@@ -6,6 +6,9 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily:{
+        'sans': ['Quantico', 'cursive'],
+      },
       minWidth: {
         xl: '42rem', // 576px
       },

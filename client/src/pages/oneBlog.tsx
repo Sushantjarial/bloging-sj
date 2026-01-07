@@ -15,6 +15,7 @@ export interface Blog {
   content: string;
   createdAt: string;
   author: {
+    id: string | undefined;
     firstName: string;
     lastName: string;
   };
@@ -25,6 +26,7 @@ export default function OneBlog() {
   const navigate = useNavigate();
   const [urlSearchParams] = useSearchParams();
   const id = urlSearchParams.get("id");
+  const authorId = urlSearchParams.get("authorId");
   const [posts, setPosts] = useRecoilState(BlogState);
   const [sideCard, setSideCard] = useState(false);
 
@@ -136,27 +138,37 @@ export default function OneBlog() {
       <div className="fixed inset-0 bg-gradient-to-b from-green-500/10 via-green-500/5 to-transparent pointer-events-none"></div>
       {token ? <Appbar writeIcon={true} /> : <Appbar auth="Signup" />}
 
-      <div className="lg:grid grid-cols-12 gap-0 max-w-8xl mx-auto relative">
-        <div className={`lg:grid ${sideCard ? "col-span-8" : "col-span-12"} `}>
-          <OneBlogCard post={post} hideSide={hideSide} />
-        </div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="lg:grid lg:grid-cols-12 lg:gap-8">
+          <div
+            className={`transition-all duration-300 ${
+              sideCard ? "lg:col-span-8" : "lg:col-span-12"
+            }`}
+          >
+            <OneBlogCard post={post} hideSide={hideSide} />
+          </div>
 
-        <div
-          className={`hidden lg:block col-span-4 relative ${
-            sideCard ? "opacity-100" : "opacity-0"
-          } transition-opacity duration-300`}
-        >
-          <div className="sticky top-0">
-            <div className="absolute left-0 w-[1px] h-full bg-gradient-to-b from-transparent via-green-500/40 to-transparent" />
-            <div className="pl-4">
-              <OneBlogSideCard id={post.authorId} />
+          <div
+            className={`hidden lg:block lg:col-span-4 transition-all duration-300 ${
+              sideCard ? "opacity-100" : "opacity-0 pointer-events-none"
+            }`}
+          >
+            <div className="sticky top-20">
+              <div className="relative">
+                <div className="absolute -left-4 top-0 bottom-0 w-[1px] bg-gradient-to-b from-transparent via-green-500/40 to-transparent" />
+                <div className="bg-black bg-opacity-50 border border-green-500 border-opacity-30 rounded-lg p-6">
+                  <OneBlogSideCard id={authorId || post.authorId} />
+                </div>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div className="lg:hidden w-full">
-          <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-green-500/40 to-transparent my-4" />
-          <OneBlogSideCard id={post.authorId} />
+          <div className="lg:hidden mt-8">
+            <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-green-500/40 to-transparent mb-8" />
+            <div className="bg-black bg-opacity-50 border border-green-500 border-opacity-30 rounded-lg p-6">
+              <OneBlogSideCard id={authorId || post.authorId} />
+            </div>
+          </div>
         </div>
       </div>
     </div>

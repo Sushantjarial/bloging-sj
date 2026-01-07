@@ -60,13 +60,15 @@ export default function Blogs() {
               return (
                 <div className="flex justify-center" key={post.id}>
                   <div className="my-6 mx-2 max-w-2xl w-screen rounded-full bg-green-900 md:min-w-xl">
+                    
                     <Blogcard
                       createdAt={post.createdAt}
                       title={post.title}
                       content={post.content}
                       id={post.id}
                       author={post.author}
-                      authorId={post.authorId}
+ 
+                      authorId={post.author.id}
                     ></Blogcard>
                   </div>
                 </div>
