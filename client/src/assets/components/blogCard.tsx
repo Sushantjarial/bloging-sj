@@ -5,6 +5,7 @@ import axios from "axios";
 import { BACKEND_URL } from "../../../config";
 import toast from "react-hot-toast";
 import { format } from "date-fns";
+import Avatar from "./avatar";
 
 interface t {
   title: string;
@@ -27,7 +28,7 @@ function calculateReadingTime(htmlContent: string): [number, string] {
   return [readingTime, plainText];
 }
 export const formatDate = (date: any) => {
-  return format(new Date(date), "MMM d ");
+  return format(new Date(date), "MMM d, yyyy");
 };
 
 const cardAnimationKeyframes = `
@@ -57,7 +58,13 @@ const scrollAnimationKeyframes = `
 `;
 
 const style = document.createElement("style");
-style.innerHTML = cardAnimationKeyframes + scrollAnimationKeyframes;
+// Utility clamps (no Tailwind plugin needed)
+const clampUtilities = `
+  .clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .clamp-3 { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+`;
+style.innerHTML =
+  cardAnimationKeyframes + scrollAnimationKeyframes + clampUtilities;
 document.head.appendChild(style);
 
 export default function BlogCard({
@@ -126,8 +133,9 @@ export default function BlogCard({
     <div
       ref={cardRef}
       className={`relative flex flex-col bg-black bg-opacity-100 text-white rounded-lg p-4 md:p-6
-                  border-r-2 border-b-2 border-green-500 
-                  hover:bg-opacity-80 transition-all duration-300
+                  border-r-2 border-b-2 border-green-500 shadow-md
+                  hover:bg-opacity-90 hover:shadow-green-500/20 hover:-translate-y-0.5
+                   transition-all duration-300
                   ${
                     isVisible
                       ? "animate-[fadeSlideUp_0.6s_ease-out_forwards]"
@@ -135,33 +143,39 @@ export default function BlogCard({
                   }`}
     >
       <Link
-        className="font-bold text-base md:text-xl pb-2 px-0 md:px-2 text-green-600 
-                   transition-all duration-300 hover:translate-x-2
-                   hover:underline line-clamp-3"
-        to={`/blog/?id=${id}`}
+        className="font-bold tracking-tight text-base md:text-xl pb-2 px-0 md:px-2 text-green-500 
+                   transition-all duration-300 hover:translate-x-1
+                   hover:underline clamp-3"
+        to={`/blog/?id=${id}&authorId=${authorId}`}
       >
         {title}
       </Link>
 
-      <Link
-        className="opacity-65 md:hidden text-sm text-start px-0 pb-3 cursor-pointer line-clamp-3"
-        dangerouslySetInnerHTML={{ __html: text.slice(0, 80) + "..." }}
-        to={`/blog/?id=${id}`}
-      />
+    
 
-      <div
-        className="opacity-65 hidden md:block text-start px-2 pb-3"
-        dangerouslySetInnerHTML={{
-          __html: side ? text.slice(0, 80) + "..." : text.slice(0, 200) + "...",
-        }}
-      />
+      <Link to={`/blog/?id=${id}`}
+        className =" hover:cursor-pointer text-start px-0 md:px-2 pb-3 text-gray-300" >
+
+      {side ? text.slice(0, 80) + "..." : text.slice(0, 200) + "..."}
+
+      </Link>
 
       <div className="font-extralight pt-3 flex flex-row gap-2 md:gap-4 items-center flex-wrap">
-        <div className={`flex opacity-40 items-center ${deleteIcon ? "" : ""}`}>
-          <div className="text-sm">{author.firstName}</div>
+        <div
+          className={`flex items-center md:px-2 gap-2 opacity-80 ${
+            deleteIcon ? "" : ""
+          }`}
+        >
+          <Avatar
+            name={author.firstName?.charAt(0).toUpperCase()}
+            color="green"
+            big={false}
+            appBar={false}
+          />
+          <div className="text-sm text-gray-200">{author.firstName}</div>
         </div>
-        <div className="opacity-40 text-sm">{formatDate(createdAt)}</div>
-        <div className="opacity-40 text-sm">{readingTime} min</div>
+        <div className="text-gray-400 text-sm">{formatDate(createdAt)}</div>
+        <div className="text-gray-400 text-sm">{readingTime} min</div>
         <button
           onClick={() => setShowWarning(true)}
           className={`flex items-center gap-1 ml-auto opacity-40 hover:opacity-100 transition-opacity ${
