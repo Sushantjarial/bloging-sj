@@ -63,7 +63,7 @@ npm run preview
 npm run lint
 ```
 
-## Project Structure
+## 📂 Project Structure
 
 ```
 src/
@@ -89,7 +89,7 @@ src/
 └── main.tsx             # Entry point
 ```
 
-## Key Components
+## 🎯 Key Components
 
 ### BlogCard
 
