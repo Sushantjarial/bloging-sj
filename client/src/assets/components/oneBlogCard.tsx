@@ -26,7 +26,9 @@ export default function OneBlogCard({ post, hideSide }: BlogPost) {
   }, [post.content]);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     const handleScroll = () => {
+
       setIsScrolled(window.scrollY > 100);
 
       const article = document.querySelector(".prose");

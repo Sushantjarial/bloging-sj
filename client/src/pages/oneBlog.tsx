@@ -148,7 +148,7 @@ export default function OneBlog() {
 
           <div
             className={`hidden lg:block lg:col-span-4 transition-all duration-300 ${
-              sideCard ? "opacity-100" : "opacity-0 pointer-events-none"
+              sideCard ? "hidden" : "opacity-0 "
             }`}
           >
             <div className="sticky top-16 max-h-[calc(100vh-5rem)] overflow-hidden">
